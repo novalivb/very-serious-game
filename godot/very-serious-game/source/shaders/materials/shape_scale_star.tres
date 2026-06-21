@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bxgmxhrl6qgei"]
+
+[ext_resource type="Shader" uid="uid://bvif8mwc68saa" path="res://source/shaders/materials/shaders/shape_scale.gdshader" id="1_07eq4"]
+[ext_resource type="Texture2D" uid="uid://ff3selq0qwdm" path="res://source/shaders/textures/pixil-frame-0.png" id="2_6djv5"]
+
+[resource]
+shader = ExtResource("1_07eq4")
+shader_parameter/progress = 0.0
+shader_parameter/_shape = ExtResource("2_6djv5")
+shader_parameter/fill = true
+shader_parameter/center_offset = Vector2(0.3, 0.3)

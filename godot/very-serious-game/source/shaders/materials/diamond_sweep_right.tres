@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ca75uolvq75pc"]
+
+[ext_resource type="Shader" uid="uid://1w4rrq2ua205" path="res://source/shaders/materials/shaders/diamond_sweep_right.gdshader" id="1_8mbtj"]
+
+[resource]
+shader = ExtResource("1_8mbtj")
+shader_parameter/progress = 0.0
+shader_parameter/size = 40.0
+shader_parameter/fill = true

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dko8taocf13ok"]
+
+[ext_resource type="Shader" uid="uid://dk1cdeee0pqy6" path="res://source/shaders/materials/shaders/fade_in.gdshader" id="1_m8dew"]
+
+[resource]
+shader = ExtResource("1_m8dew")
+shader_parameter/progress = 0.0
+shader_parameter/fill = true

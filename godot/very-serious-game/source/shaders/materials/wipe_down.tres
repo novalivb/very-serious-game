@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ctchqkg1fdiu5"]
+
+[ext_resource type="Shader" uid="uid://5bmhlc054w3w" path="res://source/shaders/materials/shaders/wipe_down.gdshader" id="1_xr65f"]
+
+[resource]
+shader = ExtResource("1_xr65f")
+shader_parameter/progress = 0.0
+shader_parameter/fill = true

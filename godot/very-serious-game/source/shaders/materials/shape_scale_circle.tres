@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://eaoykg61k5yr"]
+
+[ext_resource type="Shader" uid="uid://bvif8mwc68saa" path="res://source/shaders/materials/shaders/shape_scale.gdshader" id="1_xw2lu"]
+[ext_resource type="Texture2D" uid="uid://c0f8grqgtctqe" path="res://source/shaders/textures/white_circle_1000_1000.png" id="2_xw2lu"]
+
+[resource]
+shader = ExtResource("1_xw2lu")
+shader_parameter/progress = 0.0
+shader_parameter/_shape = ExtResource("2_xw2lu")
+shader_parameter/fill = true
+shader_parameter/center_offset = Vector2(0, 0)

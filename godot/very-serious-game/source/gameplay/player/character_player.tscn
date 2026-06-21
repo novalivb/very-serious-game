@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c7ob82iw3t22r"]
+
+[ext_resource type="Script" uid="uid://c3h22qs33c3gw" path="res://source/gameplay/player/character_player.gd" id="1_qlc6g"]
+[ext_resource type="Script" uid="uid://dqe82ipcq4pab" path="res://source/gameplay/player/components/climb_input_component.gd" id="2_8hqas"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jomo4"]
+radius = 30.0
+height = 90.0
+
+[node name="CharacterPlayer" type="CharacterBody2D" unique_id=205263212]
+script = ExtResource("1_qlc6g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1375857868]
+shape = SubResource("CapsuleShape2D_jomo4")
+
+[node name="Pivot" type="Node2D" parent="." unique_id=710929311]
+unique_name_in_owner = true
+position = Vector2(-48, -32)
+
+[node name="LHMarker" type="Marker2D" parent="." unique_id=1915031314]
+position = Vector2(-48, -32)
+
+[node name="RHMarker" type="Marker2D" parent="." unique_id=414707859]
+position = Vector2(48, -32)
+
+[node name="ClimbInputComponent" type="Node" parent="." unique_id=2125415710]
+script = ExtResource("2_8hqas")

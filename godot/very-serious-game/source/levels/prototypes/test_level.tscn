@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://0p0ifxkhcgrr"]
+
+[ext_resource type="Texture2D" uid="uid://c2moei5sh4ko2" path="res://assets/art/textures/metal_mesh_1.png" id="1_6r41w"]
+[ext_resource type="PackedScene" uid="uid://c7ob82iw3t22r" path="res://source/gameplay/player/character_player.tscn" id="3_eco44"]
+[ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="3_y47ty"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kcpv0"]
+size = Vector2(10000, 10000)
+
+[node name="TestLevel" type="Node2D" unique_id=1883799318]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=357530353]
+repeat_size = Vector2(384, 384)
+repeat_times = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1203496844]
+scale = Vector2(2, 2)
+texture = ExtResource("1_6r41w")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=332792044 node_paths=PackedStringArray("target")]
+script = ExtResource("3_y47ty")
+target = NodePath("")
+lock_x = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1037058784]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=379391231]
+shape = SubResource("RectangleShape2D_kcpv0")
+debug_color = Color(0.85490197, 0.2, 0.69803923, 0.11764706)
+
+[node name="CharacterPlayer" parent="." unique_id=205263212 instance=ExtResource("3_eco44")]

@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://cegnn4fyiak8c"]
+
+[sub_resource type="Theme" id="Theme_kcpv0"]
+Button/font_sizes/font_size = 64
+
+[node name="MainMenu" type="Node2D" unique_id=1783462879]
+
+[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=2097906086]
+layer = 5
+
+[node name="MainMenuUI" type="Control" parent="MenuLayer" unique_id=1249265452]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScreenMargins" type="MarginContainer" parent="MenuLayer/MainMenuUI" unique_id=993689981]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="Panel" type="Panel" parent="MenuLayer/MainMenuUI/ScreenMargins" unique_id=1799119768]
+layout_mode = 2
+offset_transform_enabled = true
+
+[node name="PanelMargins" type="MarginContainer" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel" unique_id=714806182]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins" unique_id=602389766]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer" unique_id=1900614518]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "GUH"
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer" unique_id=864052392]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer" unique_id=723721963]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="StartButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=868002889]
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "START"
+alignment = 2
+
+[node name="LevelsButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=145357992]
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "LEVELS"
+alignment = 2
+
+[node name="SettingsButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=2127454962]
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "SETTINGS"
+alignment = 2
+
+[node name="QuitButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=314552793]
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "QUIT"
+alignment = 2

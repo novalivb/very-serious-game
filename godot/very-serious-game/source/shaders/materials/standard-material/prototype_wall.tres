@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b1ara241ke27d"]
+
+[ext_resource type="Texture2D" uid="uid://gkkr1rxdgcxl" path="res://assets/art/world/kenney prototype textures/PNG/Purple/texture_08.png" id="1_ogd3k"]
+
+[resource]
+albedo_texture = ExtResource("1_ogd3k")
+uv1_triplanar = true
+grow_amount = -0.538
