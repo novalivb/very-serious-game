@@ -1,13 +1,23 @@
 [gd_scene format=3 uid="uid://0p0ifxkhcgrr"]
 
 [ext_resource type="Texture2D" uid="uid://c2moei5sh4ko2" path="res://assets/art/textures/metal_mesh_1.png" id="1_6r41w"]
+[ext_resource type="Script" uid="uid://bt2uvdjg25260" path="res://source/levels/prototypes/test_level.gd" id="1_eco44"]
 [ext_resource type="PackedScene" uid="uid://c7ob82iw3t22r" path="res://source/gameplay/player/character_player.tscn" id="3_eco44"]
 [ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="3_y47ty"]
+[ext_resource type="PackedScene" uid="uid://jkjaitqvxsd2" path="res://source/levels/level-objects/path_spawner.tscn" id="4_q1y7n"]
+[ext_resource type="PackedScene" uid="uid://ltxit4c5w0np" path="res://source/levels/level-objects/boulder.tscn" id="5_iq5kd"]
+
+[sub_resource type="Curve2D" id="Curve2D_iq5kd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -600, 0, 0, 0, 0, 0, 600, 0)
+}
+point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcpv0"]
 size = Vector2(10000, 10000)
 
 [node name="TestLevel" type="Node2D" unique_id=1883799318]
+script = ExtResource("1_eco44")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=357530353]
 repeat_size = Vector2(384, 384)
@@ -18,11 +28,28 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_6r41w")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=332792044 node_paths=PackedStringArray("target")]
+position_smoothing_enabled = true
 script = ExtResource("3_y47ty")
-target = NodePath("")
+target = NodePath("../CharacterPlayer")
 lock_x = true
 
+[node name="CameraTopAnchor" type="Node2D" parent="Camera2D" unique_id=2054982944]
+position = Vector2(0, -495)
+
+[node name="PathSpawner" parent="Camera2D/CameraTopAnchor" unique_id=725664121 node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("4_q1y7n")]
+scene_to_spawn = ExtResource("5_iq5kd")
+path = NodePath("Path2D")
+path_follow = NodePath("Path2D/PathFollow2D")
+
+[node name="Path2D" type="Path2D" parent="Camera2D/CameraTopAnchor/PathSpawner" unique_id=619429139]
+curve = SubResource("Curve2D_iq5kd")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Camera2D/CameraTopAnchor/PathSpawner/Path2D" unique_id=69214637]
+position = Vector2(-32.999817, 0)
+progress = 567.0003
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1037058784]
+visible = false
 collision_layer = 2
 collision_mask = 0
 
@@ -31,3 +58,5 @@ shape = SubResource("RectangleShape2D_kcpv0")
 debug_color = Color(0.85490197, 0.2, 0.69803923, 0.11764706)
 
 [node name="CharacterPlayer" parent="." unique_id=205263212 instance=ExtResource("3_eco44")]
+collision_mask = 4
+default_rotational_speed = 6.283185307179586
