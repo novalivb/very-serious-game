@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://djrxyck3w0ym3"]
+
+[ext_resource type="FontFile" uid="uid://g5sgav4g13yi" path="res://assets/art/ui/fonts/WolveSymbol.ttf" id="1_hh6gr"]
+[ext_resource type="Script" uid="uid://y6cu2n1blv6l" path="res://source/ui/hud/warning_label.gd" id="2_5b2r8"]
+
+[node name="WarningLabel" type="RichTextLabel" unique_id=1322544779]
+custom_minimum_size = Vector2(0, 128)
+offset_right = 1.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.16862746, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("1_hh6gr")
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "[wave amp=48.0 freq=16.0 connected=1]r[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+autowrap_trim_flags = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_5b2r8")

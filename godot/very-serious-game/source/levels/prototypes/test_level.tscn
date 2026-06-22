@@ -1,17 +1,25 @@
 [gd_scene format=3 uid="uid://0p0ifxkhcgrr"]
 
-[ext_resource type="Texture2D" uid="uid://c2moei5sh4ko2" path="res://assets/art/textures/metal_mesh_1.png" id="1_6r41w"]
 [ext_resource type="Script" uid="uid://bt2uvdjg25260" path="res://source/levels/prototypes/test_level.gd" id="1_eco44"]
+[ext_resource type="Texture2D" uid="uid://cegao2ol11ev" path="res://assets/art/textures/tiger-rock/tiger_rock_diff_4k.jpg" id="2_iq5kd"]
 [ext_resource type="PackedScene" uid="uid://c7ob82iw3t22r" path="res://source/gameplay/player/character_player.tscn" id="3_eco44"]
 [ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="3_y47ty"]
 [ext_resource type="PackedScene" uid="uid://jkjaitqvxsd2" path="res://source/levels/level-objects/path_spawner.tscn" id="4_q1y7n"]
 [ext_resource type="PackedScene" uid="uid://ltxit4c5w0np" path="res://source/levels/level-objects/boulder.tscn" id="5_iq5kd"]
+[ext_resource type="Script" uid="uid://c3km4sfpdmgt6" path="res://source/levels/level-objects/hazard_warning_area.gd" id="6_qa23c"]
+[ext_resource type="Script" uid="uid://dgpofsvh24j1b" path="res://source/levels/level-objects/hazard_deletion_area.gd" id="7_2yvq3"]
 
 [sub_resource type="Curve2D" id="Curve2D_iq5kd"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -600, 0, 0, 0, 0, 0, 600, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -800, 0, 0, 0, 0, 0, 800, 0)
 }
 point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jomo4"]
+size = Vector2(1666, 433)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjsbg"]
+size = Vector2(10124, 300)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcpv0"]
 size = Vector2(10000, 10000)
@@ -68,7 +76,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 2),
 "transitions": PackedFloat32Array(2, 0.5, 0.08246929),
 "update": 0,
-"values": [Vector2(0, 461), Vector2(0, 0), Vector2(0, -290.665)]
+"values": [Vector2(0, 600), Vector2(0, 0), Vector2(0, -400)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -119,20 +127,19 @@ _data = {
 script = ExtResource("1_eco44")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=357530353]
-repeat_size = Vector2(384, 384)
-repeat_times = 5
+repeat_size = Vector2(0, 4096)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1203496844]
-scale = Vector2(2, 2)
-texture = ExtResource("1_6r41w")
+texture = ExtResource("2_iq5kd")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=332792044]
+zoom = Vector2(0.69, 0.69)
 position_smoothing_enabled = true
 script = ExtResource("3_y47ty")
 lock_x = true
 
 [node name="CameraTopAnchor" type="Node2D" parent="Camera2D" unique_id=2054982944]
-position = Vector2(0, -495)
+position = Vector2(0, -948)
 
 [node name="PathSpawner" parent="Camera2D/CameraTopAnchor" unique_id=725664121 node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("4_q1y7n")]
 scene_to_spawn = ExtResource("5_iq5kd")
@@ -143,8 +150,33 @@ path_follow = NodePath("Path2D/PathFollow2D")
 curve = SubResource("Curve2D_iq5kd")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Camera2D/CameraTopAnchor/PathSpawner/Path2D" unique_id=69214637]
-position = Vector2(-32.999817, 0)
+position = Vector2(-233.00052, 0)
 progress = 567.0003
+
+[node name="HazardWarningArea" type="Area2D" parent="Camera2D/CameraTopAnchor" unique_id=1135794675]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("6_qa23c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CameraTopAnchor/HazardWarningArea" unique_id=1409999694]
+position = Vector2(0, 169.5)
+shape = SubResource("RectangleShape2D_jomo4")
+debug_color = Color(0.97040695, 0.17443639, 1.92523e-07, 0.41960785)
+
+[node name="CameraBottomAnchor" type="Node2D" parent="Camera2D" unique_id=58514269]
+position = Vector2(0, 698)
+
+[node name="HazardDeletionArea" type="Area2D" parent="Camera2D/CameraBottomAnchor" unique_id=256545123]
+position = Vector2(0, 120)
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("7_2yvq3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CameraBottomAnchor/HazardDeletionArea" unique_id=1943995801]
+shape = SubResource("RectangleShape2D_xjsbg")
+debug_color = Color(0, 0, 0, 0.41960785)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1037058784]
 visible = false
@@ -164,3 +196,7 @@ enabled = false
 [node name="LevelAnimations" type="AnimationPlayer" parent="." unique_id=242767561]
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_2yvq3")
+
+[connection signal="body_entered" from="Camera2D/CameraTopAnchor/HazardWarningArea" to="Camera2D/CameraTopAnchor/HazardWarningArea" method="_on_body_entered"]
+[connection signal="body_exited" from="Camera2D/CameraTopAnchor/HazardWarningArea" to="Camera2D/CameraTopAnchor/HazardWarningArea" method="_on_body_exited"]
+[connection signal="body_entered" from="Camera2D/CameraBottomAnchor/HazardDeletionArea" to="Camera2D/CameraBottomAnchor/HazardDeletionArea" method="_on_body_entered"]

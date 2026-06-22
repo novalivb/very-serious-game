@@ -43,7 +43,8 @@ func swap_level_to(level_path : String):
 	# wait for at least minimum load time if it hasn't passed
 	if not load_minimum_timer == null:
 		if not load_minimum_timer.is_queued_for_deletion():
-			await load_minimum_timer.timeout
+			if not load_minimum_timer.time_left == 0.0:
+				await load_minimum_timer.timeout
 	
 	loading_screen_transition_out()
 	if new_level is Level:

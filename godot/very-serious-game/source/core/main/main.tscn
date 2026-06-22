@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dh57j8fswc3o1" path="res://source/core/main/main.gd" id="1_8t6ri"]
 [ext_resource type="PackedScene" uid="uid://dyf35uhuvo450" path="res://source/core/main/loading_screen/loading_screen.tscn" id="2_qssrk"]
+[ext_resource type="PackedScene" uid="uid://djrxyck3w0ym3" path="res://source/ui/hud/warning_label.tscn" id="2_r1eo4"]
 
 [node name="Main" type="Node" unique_id=1558150215]
 process_mode = 3
 script = ExtResource("1_8t6ri")
+warning_label_scene = ExtResource("2_r1eo4")
 
 [node name="Systems" type="Node" parent="." unique_id=56209384]
 

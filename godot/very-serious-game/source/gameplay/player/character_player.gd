@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_god_mode:
 		var direction = Input.get_vector("left", "right", "up", "down").normalized()
-		velocity = direction * 500
+		velocity = direction * 2000
 		
 		move_and_slide()
 		return

@@ -4,7 +4,8 @@ class_name Main extends Node
 @export var debug : bool = false
 @export var autostart : bool = false
 
-@export_category("Other")
+@export_category("Scenes")
+@export var warning_label_scene : PackedScene
 
 # world root nodes
 @onready var level_root: Node2D = %LevelRoot
@@ -22,10 +23,7 @@ const MAIN_MENU_SCENE_UID : String = "uid://cegnn4fyiak8c"
 const TEST_LEVEL_SCENE_UID : String = "uid://0p0ifxkhcgrr"
 
 var _current_level : Node
-	#set(value):
-		#_current_level = value
-		#if _current_level:
-			#level_root.add_child(_current_level)
+
 
 func _init() -> void:
 	Global.mainScene = self
@@ -33,6 +31,9 @@ func _init() -> void:
 func _ready() -> void:
 	start_menu_or_game()
 
+#region levels
+## Loads main menu if auto start is off, otherwides loads the level
+## sand loading screen
 func start_menu_or_game():
 	var level_scene : PackedScene
 	
@@ -55,19 +56,7 @@ func start_menu_or_game():
 
 func start_game():
 	SceneManager.swap_level_to(TEST_LEVEL_SCENE_UID)
-	#var new_level_scene = load_level_by_path(TEST_LEVEL_SCENE_UID)
-	#var new_level = new_level_scene.instantiate() as Level
-	#if new_level == null: return
-	#
-	#var _previous_level = _current_level
-	#set_current_level(new_level)
-	#
-	#
-	## post process prev level
-	#level_root.get_child(0).queue_free()
-	#_previous_level = null
-	#
-	#new_level.start_level()
+	
 
 func return_to_main_menu():
 	pass
@@ -80,9 +69,7 @@ func load_main_menu() -> PackedScene:
 func load_level_by_path(path : String) -> PackedScene:
 	return load(path) as PackedScene
 
-func load_level_by_index(index : int):
-	pass
-	
+## Delete current level
 func free_current_level():
 	if _current_level == null:
 		return
@@ -90,6 +77,7 @@ func free_current_level():
 	_current_level.queue_free()
 	await get_tree().process_frame
 
+## Set the level and run its start functions
 func set_current_level(level : Node):
 	_current_level = level
 	level_root.add_child(_current_level)
@@ -98,3 +86,16 @@ func set_current_level(level : Node):
 			_current_level.start_game.connect(start_game)
 	elif _current_level is Level:
 		_current_level.start_level()
+#endregion
+
+#region HUD
+const WARNING_LABEL_TOP_MARGIN : float = 60
+
+func create_warning_label(target_node : Node2D) -> WarningLabel:
+	var new_warning_label = warning_label_scene.instantiate() as WarningLabel
+	new_warning_label.target_node = target_node
+	hud_root.add_child(new_warning_label)
+	new_warning_label.position = Vector2(500, 60)
+	return new_warning_label
+
+#endregion

@@ -23,7 +23,6 @@ shape = SubResource("CapsuleShape2D_jomo4")
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("2_nsduc")
-height = 181.065
 body = NodePath("..")
 
 [node name="LHMarker" type="Marker2D" parent="Body" unique_id=1915031314]
