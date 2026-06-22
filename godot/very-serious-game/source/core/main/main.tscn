@@ -6,7 +6,6 @@
 [node name="Main" type="Node" unique_id=1558150215]
 process_mode = 3
 script = ExtResource("1_8t6ri")
-autostart = true
 
 [node name="Systems" type="Node" parent="." unique_id=56209384]
 

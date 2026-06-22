@@ -2,6 +2,8 @@ extends Control
 
 signal start_game
 
+@onready var button_animations: AnimationPlayer = %ButtonAnimations
+
 # buttons
 @onready var start_button: Button = %StartButton
 @onready var levels_button: Button = %LevelsButton
@@ -15,6 +17,7 @@ func _ready() -> void:
 func _on_menu_button_pressed(button : Button):
 	match button.name:
 		"StartButton":
+			button_animations.play("start_pressed")
 			start_game.emit()
 		"LevelsButton":
 			pass

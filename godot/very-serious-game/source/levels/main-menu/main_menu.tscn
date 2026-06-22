@@ -3,6 +3,91 @@
 [ext_resource type="Script" uid="uid://wvl10idqw34c" path="res://source/levels/main-menu/main_menu.gd" id="1_ayfh3"]
 [ext_resource type="Script" uid="uid://b55ff8f0fupj1" path="res://source/levels/main-menu/main_menu_ui.gd" id="2_nb24a"]
 
+[sub_resource type="Animation" id="Animation_nb24a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%StartButton:offset_transform_pivot_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%StartButton:offset_transform_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%StartButton:offset_transform_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m6035"]
+resource_name = "start_pressed"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%StartButton:offset_transform_pivot_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(0, 0), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%StartButton:offset_transform_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.10471975511965978, 0.10471976, -0.10471976, 0.10471976, -0.10471976]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%StartButton:offset_transform_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -60), Vector2(0, -120), Vector2(0, -180), Vector2(0, -240), Vector2(0, -300)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6g5xe"]
+_data = {
+&"RESET": SubResource("Animation_nb24a"),
+&"start_pressed": SubResource("Animation_m6035")
+}
+
 [sub_resource type="Theme" id="Theme_kcpv0"]
 Button/font_sizes/font_size = 64
 
@@ -21,6 +106,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_nb24a")
+
+[node name="ButtonAnimations" type="AnimationPlayer" parent="MenuLayer/MainMenuUI" unique_id=285210958]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_6g5xe")
 
 [node name="ScreenMargins" type="MarginContainer" parent="MenuLayer/MainMenuUI" unique_id=993689981]
 layout_mode = 1
@@ -74,6 +163,7 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
+offset_transform_pivot_ratio = Vector2(0, 0)
 theme = SubResource("Theme_kcpv0")
 text = "START"
 alignment = 2
