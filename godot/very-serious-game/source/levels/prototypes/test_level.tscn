@@ -16,6 +16,105 @@ point_count = 2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kcpv0"]
 size = Vector2(10000, 10000)
 
+[sub_resource type="Animation" id="Animation_iq5kd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterPlayer:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 461)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterPlayer:enabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qa23c"]
+resource_name = "enter_player"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterPlayer:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(2, 0.5, 0.08246929),
+"update": 0,
+"values": [Vector2(0, 461), Vector2(0, 0), Vector2(0, -290.665)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"setup_camera"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterPlayer:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2yvq3"]
+_data = {
+&"RESET": SubResource("Animation_iq5kd"),
+&"enter_player": SubResource("Animation_qa23c")
+}
+
 [node name="TestLevel" type="Node2D" unique_id=1883799318]
 script = ExtResource("1_eco44")
 
@@ -27,10 +126,9 @@ repeat_times = 5
 scale = Vector2(2, 2)
 texture = ExtResource("1_6r41w")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=332792044 node_paths=PackedStringArray("target")]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=332792044]
 position_smoothing_enabled = true
 script = ExtResource("3_y47ty")
-target = NodePath("../CharacterPlayer")
 lock_x = true
 
 [node name="CameraTopAnchor" type="Node2D" parent="Camera2D" unique_id=2054982944]
@@ -58,5 +156,11 @@ shape = SubResource("RectangleShape2D_kcpv0")
 debug_color = Color(0.85490197, 0.2, 0.69803923, 0.11764706)
 
 [node name="CharacterPlayer" parent="." unique_id=205263212 instance=ExtResource("3_eco44")]
+position = Vector2(0, 461)
 collision_mask = 4
 default_rotational_speed = 6.283185307179586
+enabled = false
+
+[node name="LevelAnimations" type="AnimationPlayer" parent="." unique_id=242767561]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_2yvq3")

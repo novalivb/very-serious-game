@@ -8,6 +8,7 @@ extends Node2D
 
 var actual_time_to_spawn : float = 0.0
 var time_since_last_spawn : float = 0.0
+var active : bool = false
 
 func _ready() -> void:
 	actual_time_to_spawn = base_time_to_spawn

@@ -1,20 +1,26 @@
 [gd_scene format=3 uid="uid://cegnn4fyiak8c"]
 
+[ext_resource type="Script" uid="uid://wvl10idqw34c" path="res://source/levels/main-menu/main_menu.gd" id="1_ayfh3"]
+[ext_resource type="Script" uid="uid://b55ff8f0fupj1" path="res://source/levels/main-menu/main_menu_ui.gd" id="2_nb24a"]
+
 [sub_resource type="Theme" id="Theme_kcpv0"]
 Button/font_sizes/font_size = 64
 
 [node name="MainMenu" type="Node2D" unique_id=1783462879]
+script = ExtResource("1_ayfh3")
 
 [node name="MenuLayer" type="CanvasLayer" parent="." unique_id=2097906086]
 layer = 5
 
 [node name="MainMenuUI" type="Control" parent="MenuLayer" unique_id=1249265452]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_nb24a")
 
 [node name="ScreenMargins" type="MarginContainer" parent="MenuLayer/MainMenuUI" unique_id=993689981]
 layout_mode = 1
@@ -65,6 +71,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 16
 
 [node name="StartButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=868002889]
+unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
 theme = SubResource("Theme_kcpv0")
@@ -72,6 +79,7 @@ text = "START"
 alignment = 2
 
 [node name="LevelsButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=145357992]
+unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
 theme = SubResource("Theme_kcpv0")
@@ -79,6 +87,7 @@ text = "LEVELS"
 alignment = 2
 
 [node name="SettingsButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=2127454962]
+unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
 theme = SubResource("Theme_kcpv0")
@@ -86,6 +95,7 @@ text = "SETTINGS"
 alignment = 2
 
 [node name="QuitButton" type="Button" parent="MenuLayer/MainMenuUI/ScreenMargins/Panel/PanelMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=314552793]
+unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
 theme = SubResource("Theme_kcpv0")
