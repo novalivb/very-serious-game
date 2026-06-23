@@ -1,17 +1,19 @@
 [gd_scene format=3 uid="uid://c7ob82iw3t22r"]
 
 [ext_resource type="Script" uid="uid://c3h22qs33c3gw" path="res://source/gameplay/player/character_player.gd" id="1_qlc6g"]
+[ext_resource type="Texture2D" uid="uid://b1hk08cpktf5b" path="res://assets/art/characters/player/homeybee.svg" id="2_4fgpi"]
 [ext_resource type="Script" uid="uid://dqe82ipcq4pab" path="res://source/gameplay/player/components/climb_input_component.gd" id="2_8hqas"]
 [ext_resource type="Script" uid="uid://litvgyxhxbno" path="res://source/gameplay/player/camera_target.gd" id="2_nsduc"]
 [ext_resource type="Script" uid="uid://bigtovpfkkwxd" path="res://source/gameplay/player/hand.gd" id="2_onshd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jomo4"]
-radius = 30.0
-height = 90.0
+radius = 19.0
+height = 156.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kcpv0"]
 
 [node name="CharacterPlayer" type="CharacterBody2D" unique_id=205263212]
+z_index = 2
 collision_mask = 6
 script = ExtResource("1_qlc6g")
 
@@ -19,16 +21,23 @@ script = ExtResource("1_qlc6g")
 unique_name_in_owner = true
 shape = SubResource("CapsuleShape2D_jomo4")
 
-[node name="CameraTarget" type="Marker2D" parent="Body" unique_id=1258309550 node_paths=PackedStringArray("body")]
+[node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=1452509896]
+z_index = 1
+position = Vector2(0, -10)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_4fgpi")
+
+[node name="CameraTarget" type="Marker2D" parent="Body/Sprite2D" unique_id=1258309550 node_paths=PackedStringArray("body")]
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("2_nsduc")
-body = NodePath("..")
+body = NodePath("../..")
 
-[node name="LHMarker" type="Marker2D" parent="Body" unique_id=1915031314]
-position = Vector2(-48, -32)
+[node name="LHMarker" type="Marker2D" parent="Body/Sprite2D" unique_id=1915031314]
+position = Vector2(-224, -242.34)
+scale = Vector2(4, 4)
 
-[node name="LHand" type="ShapeCast2D" parent="Body/LHMarker" unique_id=1153334258]
+[node name="LHand" type="ShapeCast2D" parent="Body/Sprite2D/LHMarker" unique_id=1153334258]
 unique_name_in_owner = true
 shape = SubResource("CircleShape2D_kcpv0")
 target_position = Vector2(0, 0)
@@ -37,10 +46,11 @@ collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource("2_onshd")
 
-[node name="RHMarker" type="Marker2D" parent="Body" unique_id=414707859]
-position = Vector2(48, -32)
+[node name="RHMarker" type="Marker2D" parent="Body/Sprite2D" unique_id=414707859]
+position = Vector2(224, -242.34)
+scale = Vector2(4, 4)
 
-[node name="RHand" type="ShapeCast2D" parent="Body/RHMarker" unique_id=1967833760]
+[node name="RHand" type="ShapeCast2D" parent="Body/Sprite2D/RHMarker" unique_id=1967833760]
 unique_name_in_owner = true
 shape = SubResource("CircleShape2D_kcpv0")
 target_position = Vector2(0, 0)

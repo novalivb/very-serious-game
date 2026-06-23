@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://0p0ifxkhcgrr"]
 
 [ext_resource type="Script" uid="uid://bt2uvdjg25260" path="res://source/levels/prototypes/test_level.gd" id="1_eco44"]
+[ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_c8qxa"]
 [ext_resource type="Texture2D" uid="uid://cegao2ol11ev" path="res://assets/art/textures/tiger-rock/tiger_rock_diff_4k.jpg" id="2_iq5kd"]
 [ext_resource type="PackedScene" uid="uid://c7ob82iw3t22r" path="res://source/gameplay/player/character_player.tscn" id="3_eco44"]
 [ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="3_y47ty"]
@@ -126,7 +127,15 @@ _data = {
 [node name="TestLevel" type="Node2D" unique_id=1883799318]
 script = ExtResource("1_eco44")
 
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=614841353]
+repeat_size = Vector2(786, 1152)
+repeat_times = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1201863165]
+texture = ExtResource("2_c8qxa")
+
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=357530353]
+visible = false
 repeat_size = Vector2(0, 4096)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1203496844]
@@ -165,6 +174,7 @@ shape = SubResource("RectangleShape2D_jomo4")
 debug_color = Color(0.97040695, 0.17443639, 1.92523e-07, 0.41960785)
 
 [node name="CameraBottomAnchor" type="Node2D" parent="Camera2D" unique_id=58514269]
+visible = false
 position = Vector2(0, 698)
 
 [node name="HazardDeletionArea" type="Area2D" parent="Camera2D/CameraBottomAnchor" unique_id=256545123]
