@@ -21,6 +21,10 @@ script = ExtResource("1_qlc6g")
 unique_name_in_owner = true
 shape = SubResource("CapsuleShape2D_jomo4")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Body" unique_id=1272512265]
+unique_name_in_owner = true
+rect = Rect2(-145, -145, 290, 290)
+
 [node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=1452509896]
 z_index = 1
 position = Vector2(0, -10)
@@ -60,4 +64,5 @@ collide_with_bodies = false
 script = ExtResource("2_onshd")
 
 [node name="ClimbInputComponent" type="Node" parent="." unique_id=2125415710]
+unique_name_in_owner = true
 script = ExtResource("2_8hqas")

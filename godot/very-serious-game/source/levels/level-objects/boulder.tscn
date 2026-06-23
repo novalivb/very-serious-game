@@ -13,3 +13,8 @@ script = ExtResource("1_qdssx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1356015550]
 shape = SubResource("CircleShape2D_kcpv0")
 debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1789831249]
+rect = Rect2(-155, -155, 310, 310)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="queue_free"]

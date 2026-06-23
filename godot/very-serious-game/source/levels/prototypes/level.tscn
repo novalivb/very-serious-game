@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://0p0ifxkhcgrr"]
 
-[ext_resource type="Script" uid="uid://bt2uvdjg25260" path="res://source/levels/prototypes/test_level.gd" id="1_eco44"]
-[ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_c8qxa"]
-[ext_resource type="Texture2D" uid="uid://cegao2ol11ev" path="res://assets/art/textures/tiger-rock/tiger_rock_diff_4k.jpg" id="2_iq5kd"]
-[ext_resource type="PackedScene" uid="uid://c7ob82iw3t22r" path="res://source/gameplay/player/character_player.tscn" id="3_eco44"]
-[ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="3_y47ty"]
-[ext_resource type="PackedScene" uid="uid://jkjaitqvxsd2" path="res://source/levels/level-objects/path_spawner.tscn" id="4_q1y7n"]
-[ext_resource type="PackedScene" uid="uid://ltxit4c5w0np" path="res://source/levels/level-objects/boulder.tscn" id="5_iq5kd"]
-[ext_resource type="Script" uid="uid://c3km4sfpdmgt6" path="res://source/levels/level-objects/hazard_warning_area.gd" id="6_qa23c"]
-[ext_resource type="Script" uid="uid://dgpofsvh24j1b" path="res://source/levels/level-objects/hazard_deletion_area.gd" id="7_2yvq3"]
+[ext_resource type="Script" uid="uid://bt2uvdjg25260" path="res://source/levels/prototypes/level.gd" id="1_hdybb"]
+[ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_rcjmc"]
+[ext_resource type="Texture2D" uid="uid://cegao2ol11ev" path="res://assets/art/textures/tiger-rock/tiger_rock_diff_4k.jpg" id="3_rl53p"]
+[ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="4_bmmj4"]
+[ext_resource type="PackedScene" uid="uid://jkjaitqvxsd2" path="res://source/levels/level-objects/path_spawner.tscn" id="5_wdmp5"]
+[ext_resource type="PackedScene" uid="uid://ltxit4c5w0np" path="res://source/levels/level-objects/boulder.tscn" id="6_snyqg"]
+[ext_resource type="Script" uid="uid://c3km4sfpdmgt6" path="res://source/levels/level-objects/hazard_warning_area.gd" id="7_rtxjm"]
+[ext_resource type="Script" uid="uid://dgpofsvh24j1b" path="res://source/levels/level-objects/hazard_deletion_area.gd" id="8_xuy4i"]
+[ext_resource type="PackedScene" uid="uid://c7ob82iw3t22r" path="res://source/gameplay/player/character_player.tscn" id="9_p8k26"]
 
 [sub_resource type="Curve2D" id="Curve2D_iq5kd"]
 _data = {
@@ -124,34 +124,34 @@ _data = {
 &"enter_player": SubResource("Animation_qa23c")
 }
 
-[node name="TestLevel" type="Node2D" unique_id=1883799318]
-script = ExtResource("1_eco44")
+[node name="Level" type="Node2D" unique_id=1883799318]
+script = ExtResource("1_hdybb")
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=614841353]
 repeat_size = Vector2(786, 1152)
 repeat_times = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=1201863165]
-texture = ExtResource("2_c8qxa")
+[node name="Homeycomb" type="Sprite2D" parent="Parallax2D2" unique_id=1201863165]
+texture = ExtResource("2_rcjmc")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=357530353]
 visible = false
 repeat_size = Vector2(0, 4096)
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1203496844]
-texture = ExtResource("2_iq5kd")
+texture = ExtResource("3_rl53p")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=332792044]
 zoom = Vector2(0.69, 0.69)
 position_smoothing_enabled = true
-script = ExtResource("3_y47ty")
+script = ExtResource("4_bmmj4")
 lock_x = true
 
 [node name="CameraTopAnchor" type="Node2D" parent="Camera2D" unique_id=2054982944]
 position = Vector2(0, -948)
 
-[node name="PathSpawner" parent="Camera2D/CameraTopAnchor" unique_id=725664121 node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("4_q1y7n")]
-scene_to_spawn = ExtResource("5_iq5kd")
+[node name="PathSpawner" parent="Camera2D/CameraTopAnchor" unique_id=725664121 node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("5_wdmp5")]
+scene_to_spawn = ExtResource("6_snyqg")
 path = NodePath("Path2D")
 path_follow = NodePath("Path2D/PathFollow2D")
 
@@ -166,7 +166,7 @@ progress = 567.0003
 collision_layer = 0
 collision_mask = 4
 monitorable = false
-script = ExtResource("6_qa23c")
+script = ExtResource("7_rtxjm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CameraTopAnchor/HazardWarningArea" unique_id=1409999694]
 position = Vector2(0, 169.5)
@@ -174,15 +174,14 @@ shape = SubResource("RectangleShape2D_jomo4")
 debug_color = Color(0.97040695, 0.17443639, 1.92523e-07, 0.41960785)
 
 [node name="CameraBottomAnchor" type="Node2D" parent="Camera2D" unique_id=58514269]
-visible = false
 position = Vector2(0, 698)
 
 [node name="HazardDeletionArea" type="Area2D" parent="Camera2D/CameraBottomAnchor" unique_id=256545123]
-position = Vector2(0, 120)
+position = Vector2(0, 1758)
 collision_layer = 0
 collision_mask = 4
 monitorable = false
-script = ExtResource("7_2yvq3")
+script = ExtResource("8_xuy4i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CameraBottomAnchor/HazardDeletionArea" unique_id=1943995801]
 shape = SubResource("RectangleShape2D_xjsbg")
@@ -197,7 +196,7 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_kcpv0")
 debug_color = Color(0.85490197, 0.2, 0.69803923, 0.11764706)
 
-[node name="CharacterPlayer" parent="." unique_id=205263212 instance=ExtResource("3_eco44")]
+[node name="CharacterPlayer" parent="." unique_id=205263212 instance=ExtResource("9_p8k26")]
 position = Vector2(0, 461)
 collision_mask = 4
 default_rotational_speed = 6.283185307179586

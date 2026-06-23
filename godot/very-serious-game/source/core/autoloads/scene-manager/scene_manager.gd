@@ -16,13 +16,15 @@ func swap_level_to(level_path : String):
 	loading_screen_transition_in(false, "shape_scale_circle")
 	await loading_screen.animated_in
 	
-	# clear entities and effects
-	var active_entities = Global.mainScene.entity_root.get_children(true)
-	for entity in active_entities:
-		entity.queue_free()
-	var active_effects = Global.mainScene.effect_root.get_children(true)
-	for effect in active_effects:
-		effect.queue_free()
+	# clear main scene root nodes
+	Global.mainScene.free_entities_and_effects()
+	Global.mainScene.free_hud()
+	#var active_entities = Global.mainScene.entity_root.get_children(true)
+	#for entity in active_entities:
+		#entity.queue_free()
+	#var active_effects = Global.mainScene.effect_root.get_children(true)
+	#for effect in active_effects:
+		#effect.queue_free()
 	
 	# start minimum load time timer
 	var load_minimum_timer : SceneTreeTimer = get_tree().create_timer(MINIMUM_LOAD_TIME)

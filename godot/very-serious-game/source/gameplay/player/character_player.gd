@@ -1,9 +1,11 @@
-extends CharacterBody2D
+class_name CharacterPlayer extends CharacterBody2D
 
 enum DIRECTION {
 	LEFT = -1, # ccw
 	RIGHT = 1, # cw
 }
+
+signal screen_exited
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -11,8 +13,9 @@ const JUMP_VELOCITY = -400.0
 @export_range(0.1, 360, 0.1, "radians_as_degrees") var default_rotational_speed : float = PI / 2
 @export var enabled : bool = true
 
-@onready var climb_input_component: ClimbInputComponent = $ClimbInputComponent
+@onready var climb_input_component: ClimbInputComponent = %ClimbInputComponent
 @onready var camera_target: Marker2D = %CameraTarget
+@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 
 # body nodes
 @onready var body: CollisionShape2D = %Body
@@ -46,6 +49,8 @@ func _ready() -> void:
 		climb_input_component.climb_left_released.connect(release_left)
 		climb_input_component.climb_right_pressed.connect(grab_right)
 		climb_input_component.climb_right_released.connect(release_right)
+	if not visible_on_screen_notifier_2d == null:
+		visible_on_screen_notifier_2d.screen_exited.connect(_on_visible_on_screen_notifier_2d_screen_exited)
 
 
 func _physics_process(delta: float) -> void:
@@ -113,3 +118,8 @@ func release_left():
 	is_grabbing_left = false
 	if is_grabbing_right:
 		repivot_to(r_hand.global_position)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	if not enabled: return
+	screen_exited.emit()

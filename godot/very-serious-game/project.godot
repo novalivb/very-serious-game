@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Very Serious Game"
+config/name="Homey Bee"
+config/version="0.5"
 run/main_scene="uid://d4qkvktf6bjg"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://muc1b7801yrh"
 
 [audio]
 
@@ -25,6 +26,7 @@ AudioManager="*uid://bfb7wl3hl2p7h"
 Global="*uid://c7d45ueijvivf"
 SceneLoader="*uid://cpde5r8f0iyid"
 SceneManager="*uid://b033m02ybn5qf"
+ConfigFileHandler="*uid://r2fvoboob4r8"
 
 [display]
 

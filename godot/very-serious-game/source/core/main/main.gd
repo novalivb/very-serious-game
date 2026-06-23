@@ -19,6 +19,7 @@ class_name Main extends Node
 @onready var debug_root: Control = %DebugRoot
 
 
+
 const MAIN_MENU_SCENE_UID : String = "uid://cegnn4fyiak8c"
 const TEST_LEVEL_SCENE_UID : String = "uid://0p0ifxkhcgrr"
 
@@ -30,6 +31,25 @@ func _init() -> void:
 
 func _ready() -> void:
 	start_menu_or_game()
+
+func get_hud_root() -> Control:
+	return hud_root
+func get_level_root() -> Node2D:
+	return level_root
+func get_entity_root() -> Node2D:
+	return entity_root
+func get_effect_root() -> Node2D:
+	return effect_root
+
+func free_entities_and_effects():
+	for child in entity_root.get_children():
+		child.queue_free()
+	for child in effect_root.get_children():
+		child.queue_free()
+
+func free_hud():
+	for child in hud_root.get_children():
+		child.queue_free()
 
 #region levels
 ## Loads main menu if auto start is off, otherwides loads the level
