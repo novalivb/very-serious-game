@@ -1,13 +1,15 @@
 [gd_scene format=3 uid="uid://cc1f6ttqhj3u"]
 
 [ext_resource type="Script" uid="uid://b55ff8f0fupj1" path="res://source/levels/main-menu/main_menu_ui.gd" id="1_y3du3"]
+[ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_u4x3k"]
+[ext_resource type="Script" uid="uid://bwfswwfx2u20h" path="res://source/ui/main-menu/volume_slider.gd" id="3_gomhu"]
 
 [sub_resource type="Animation" id="Animation_nb24a"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_pivot_ratio")
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons/StartButton:offset_transform_pivot_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -19,7 +21,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_rotation")
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons/StartButton:offset_transform_rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -31,7 +33,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_position")
+tracks/2/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons/StartButton:offset_transform_position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -40,6 +42,30 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons:offset_transform_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu:offset_transform_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(569, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_m6035"]
 resource_name = "start_pressed"
@@ -47,7 +73,7 @@ length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_pivot_ratio")
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons/StartButton:offset_transform_pivot_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -59,7 +85,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_rotation")
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons/StartButton:offset_transform_rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -71,7 +97,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_position")
+tracks/2/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons/StartButton:offset_transform_position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -81,10 +107,68 @@ tracks/2/keys = {
 "values": [Vector2(0, 0), Vector2(0, -60), Vector2(0, -120), Vector2(0, -180), Vector2(0, -240), Vector2(0, -300)]
 }
 
+[sub_resource type="Animation" id="Animation_gomhu"]
+resource_name = "swap_to_main_buttons"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons:offset_transform_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(569, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.22531305, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(569, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u4x3k"]
+resource_name = "swap_to_settings"
+length = 0.19999999999999998
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons:offset_transform_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.22531264, 2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(569, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu:offset_transform_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 0.5),
+"update": 0,
+"values": [Vector2(569, 0), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6g5xe"]
 _data = {
 &"RESET": SubResource("Animation_nb24a"),
-&"start_pressed": SubResource("Animation_m6035")
+&"start_pressed": SubResource("Animation_m6035"),
+&"swap_to_main_buttons": SubResource("Animation_gomhu"),
+&"swap_to_settings": SubResource("Animation_u4x3k")
 }
 
 [sub_resource type="Theme" id="Theme_kcpv0"]
@@ -138,14 +222,130 @@ size_flags_horizontal = 10
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer" unique_id=1605218393]
+[node name="TextureRect" type="TextureRect" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer" unique_id=2095336679]
+visible = false
+layout_mode = 2
+texture = ExtResource("2_u4x3k")
+expand_mode = 1
+
+[node name="SettingsMenu" type="MarginContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer" unique_id=727394138]
+custom_minimum_size = Vector2(469, 0)
+clip_contents = true
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(569, 0)
+offset_transform_visual_only = false
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu" unique_id=435832363]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="SFXVolume" type="HBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=2060191599]
+layout_mode = 2
+
+[node name="SFXSlider" type="HSlider" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/SFXVolume" unique_id=1578289743]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 69.0
+script = ExtResource("3_gomhu")
+bus = "SFX"
+
+[node name="SFX" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/SFXVolume" unique_id=2069358893]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "SFX"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MusicVolume" type="HBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=950474687]
+layout_mode = 2
+
+[node name="MusicSlider" type="HSlider" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MusicVolume" unique_id=1563163073]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 69.0
+script = ExtResource("3_gomhu")
+bus = "Music"
+
+[node name="Music" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MusicVolume" unique_id=1966332769]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Music"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MasterVolume" type="HBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=380126947]
+layout_mode = 2
+
+[node name="MasterSlider" type="HSlider" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MasterVolume" unique_id=1428474158]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 69.0
+script = ExtResource("3_gomhu")
+bus = "Master"
+
+[node name="Master" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MasterVolume" unique_id=1994442690]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Master"
+horizontal_alignment = 2
+
+[node name="DeleteHighScore" type="VBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=1606677761]
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/DeleteHighScore" unique_id=2098551780]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Delete High Score?"
+horizontal_alignment = 1
+
+[node name="DeleteHighScoreButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/DeleteHighScore" unique_id=2104421597]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "YES"
+
+[node name="Label5" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/DeleteHighScore" unique_id=737934255]
+layout_mode = 2
+theme_override_colors/font_color = Color(18.892157, 0, 0, 1)
+theme_override_font_sizes/font_size = 28
+text = "IRREVSESIBLE!"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=16553203]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 69)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 32
+text = "BACK"
+
+[node name="MainButtons" type="VBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer" unique_id=1605218393]
 custom_minimum_size = Vector2(469, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+offset_transform_enabled = true
+offset_transform_visual_only = false
 theme_override_constants/separation = 16
 
-[node name="StartButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1613089866]
+[node name="StartButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons" unique_id=1613089866]
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
@@ -154,15 +354,7 @@ theme = SubResource("Theme_kcpv0")
 text = "START"
 alignment = 2
 
-[node name="LevelsButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=888565600]
-unique_name_in_owner = true
-layout_mode = 2
-offset_transform_enabled = true
-theme = SubResource("Theme_kcpv0")
-text = "LEVELS"
-alignment = 2
-
-[node name="SettingsButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=837502940]
+[node name="SettingsButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons" unique_id=837502940]
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
@@ -170,7 +362,15 @@ theme = SubResource("Theme_kcpv0")
 text = "SETTINGS"
 alignment = 2
 
-[node name="QuitButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1583738534]
+[node name="CreditsButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons" unique_id=888565600]
+unique_name_in_owner = true
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "CREDITS"
+alignment = 2
+
+[node name="QuitButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons" unique_id=1583738534]
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
