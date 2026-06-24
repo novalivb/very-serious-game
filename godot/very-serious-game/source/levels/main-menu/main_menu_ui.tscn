@@ -1,0 +1,219 @@
+[gd_scene format=3 uid="uid://cc1f6ttqhj3u"]
+
+[ext_resource type="Script" uid="uid://b55ff8f0fupj1" path="res://source/levels/main-menu/main_menu_ui.gd" id="1_y3du3"]
+
+[sub_resource type="Animation" id="Animation_nb24a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_pivot_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_m6035"]
+resource_name = "start_pressed"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_pivot_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(0, 0), Vector2(1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.10471975511965978, 0.10471976, -0.10471976, 0.10471976, -0.10471976]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer/StartButton:offset_transform_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, 0), Vector2(0, -60), Vector2(0, -120), Vector2(0, -180), Vector2(0, -240), Vector2(0, -300)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6g5xe"]
+_data = {
+&"RESET": SubResource("Animation_nb24a"),
+&"start_pressed": SubResource("Animation_m6035")
+}
+
+[sub_resource type="Theme" id="Theme_kcpv0"]
+Button/font_sizes/font_size = 64
+
+[node name="MainMenuUI" type="Control" unique_id=2141015559]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y3du3")
+
+[node name="ButtonAnimations" type="AnimationPlayer" parent="." unique_id=1128417182]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_6g5xe")
+
+[node name="Panel" type="Panel" parent="." unique_id=1080676507]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+offset_transform_enabled = true
+
+[node name="ScreenMargins" type="MarginContainer" parent="Panel" unique_id=1843720785]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScreenMargins" unique_id=2001189319]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/ScreenMargins/HBoxContainer" unique_id=1221518944]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "GUH"
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/ScreenMargins/HBoxContainer" unique_id=814743834]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer" unique_id=1605218393]
+custom_minimum_size = Vector2(469, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="StartButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1613089866]
+unique_name_in_owner = true
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_pivot_ratio = Vector2(0, 0)
+theme = SubResource("Theme_kcpv0")
+text = "START"
+alignment = 2
+
+[node name="LevelsButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=888565600]
+unique_name_in_owner = true
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "LEVELS"
+alignment = 2
+
+[node name="SettingsButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=837502940]
+unique_name_in_owner = true
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "SETTINGS"
+alignment = 2
+
+[node name="QuitButton" type="Button" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1583738534]
+unique_name_in_owner = true
+layout_mode = 2
+offset_transform_enabled = true
+theme = SubResource("Theme_kcpv0")
+text = "QUIT"
+alignment = 2
+
+[node name="ScoreBox" type="HBoxContainer" parent="Panel/ScreenMargins" unique_id=1893080343]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 32
+
+[node name="Labels" type="VBoxContainer" parent="Panel/ScreenMargins/ScoreBox" unique_id=1311871018]
+layout_mode = 2
+
+[node name="HighTextLabel" type="RichTextLabel" parent="Panel/ScreenMargins/ScoreBox/Labels" unique_id=1793933852]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
+theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=16
+.0freq=8.0connected=1]HIGH SCORE:[/wave] "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Scores" type="VBoxContainer" parent="Panel/ScreenMargins/ScoreBox" unique_id=2118346263]
+layout_mode = 2
+
+[node name="HighValueLabel" type="RichTextLabel" parent="Panel/ScreenMargins/ScoreBox/Scores" unique_id=636849639]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
+theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "0
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

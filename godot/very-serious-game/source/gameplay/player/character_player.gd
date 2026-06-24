@@ -5,6 +5,8 @@ enum DIRECTION {
 	RIGHT = 1, # cw
 }
 
+signal first_movement_taken
+signal globbed(glob : Glob)
 signal screen_exited
 
 const SPEED = 300.0
@@ -15,12 +17,14 @@ const JUMP_VELOCITY = -400.0
 
 @onready var climb_input_component: ClimbInputComponent = %ClimbInputComponent
 @onready var camera_target: Marker2D = %CameraTarget
+@onready var glob_target: Marker2D = %GlobTarget
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 
 # body nodes
 @onready var body: CollisionShape2D = %Body
 @onready var l_hand: ShapeCast2D = %LHand
 @onready var r_hand: ShapeCast2D = %RHand
+@onready var hazard_detector: ShapeCast2D = %HazardDetector
 
 
 var is_god_mode : bool = false:
@@ -31,6 +35,7 @@ var is_god_mode : bool = false:
 var is_grabbing_left : bool = false
 var is_grabbing_right : bool = false
 var current_angle : float = 0.0
+var has_taken_first_movement : bool = false
 
 func repivot_to(glo_pos : Vector2):
 	if not enabled or body == null:
@@ -42,6 +47,9 @@ func repivot_to(glo_pos : Vector2):
 	global_position = glo_pos
 	# restore original body pos
 	body.global_position = body_pos
+
+func _init() -> void:
+	Global.player = self
 
 func _ready() -> void:
 	if not climb_input_component == null:
@@ -71,24 +79,20 @@ func _physics_process(delta: float) -> void:
 		return
 	#endregion
 	
-	#region builtin
-	# Add the gravity.
-	#
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	#var direction := Input.get_axis("ui_left", "ui_right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-	#endregion
 	
+	# check shapecast colliders for globs
+	for collision_idx in hazard_detector.get_collision_count():
+		var collider =hazard_detector.get_collider(collision_idx)
+		if collider is Glob:
+			enabled = false
+			globbed.emit(collider)
+			return
+			
+	# rotate if needed
 	var rotational_velocity = get_angular_direction() * default_rotational_speed * delta
+	if not rotational_velocity == 0.0 and not has_taken_first_movement:
+		has_taken_first_movement = true
+		first_movement_taken.emit()
 	rotate(rotational_velocity)
 	
 	move_and_slide()
@@ -121,5 +125,5 @@ func release_left():
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	if not enabled: return
+	#if not enabled: return
 	screen_exited.emit()

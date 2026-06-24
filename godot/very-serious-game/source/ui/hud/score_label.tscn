@@ -22,11 +22,14 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 60
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=665069286]
+[node name="ScoreBox" type="HBoxContainer" parent="MarginContainer" unique_id=674472179]
+layout_mode = 2
+theme_override_constants/separation = 48
+
+[node name="Labels" type="VBoxContainer" parent="MarginContainer/ScoreBox" unique_id=2119990513]
 layout_mode = 2
 
-[node name="ScoreTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer" unique_id=631475777]
-unique_name_in_owner = true
+[node name="ScoreTextLabel" type="RichTextLabel" parent="MarginContainer/ScoreBox/Labels" unique_id=631475777]
 clip_contents = false
 layout_mode = 2
 theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
@@ -40,7 +43,24 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="ScoreValueLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer" unique_id=1707377946]
+[node name="HighTextLabel" type="RichTextLabel" parent="MarginContainer/ScoreBox/Labels" unique_id=921998839]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
+theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=16
+.0freq=8.0connected=1]HIGH:[/wave] "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Scores" type="VBoxContainer" parent="MarginContainer/ScoreBox" unique_id=585410810]
+layout_mode = 2
+
+[node name="ScoreValueLabel" type="RichTextLabel" parent="MarginContainer/ScoreBox/Scores" unique_id=1707377946]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
@@ -49,6 +69,21 @@ theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
+text = "==="
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="HighValueLabel" type="RichTextLabel" parent="MarginContainer/ScoreBox/Scores" unique_id=1153455988]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
+theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "==="
 fit_content = true
 scroll_active = false
 autowrap_mode = 0

@@ -15,7 +15,7 @@ func _ready() -> void:
 		config.set_value("audio", "music_volume", 1.0)
 		
 		# player settings
-		config.set_value("player", "score", 0.0)
+		config.set_value("player", "high_score", 0.0)
 		
 		
 		config.save(SETTINGS_FILE_PATH)

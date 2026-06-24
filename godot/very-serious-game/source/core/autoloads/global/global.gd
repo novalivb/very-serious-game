@@ -1,6 +1,7 @@
 extends Node
 
 var mainScene : Main = null
+var player : CharacterPlayer = null
 
 func set_main(main : Main):
 	mainScene = main as Main

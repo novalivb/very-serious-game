@@ -101,7 +101,6 @@ down={
 [layer_names]
 
 2d_physics/layer_1="PLAYER"
-2d_physics/layer_2="WALL"
 2d_physics/layer_3="HAZARD"
 
 [physics]
