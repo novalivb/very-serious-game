@@ -25,6 +25,7 @@ func _input(event: InputEvent) -> void:
 func quit_to_main_menu():
 	if mainScene == null:
 		return
+	AudioManager.stop_ambient()
 	mainScene.start_menu_or_game()
 	
 

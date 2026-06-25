@@ -3,6 +3,9 @@ class_name SoundEffectSettings extends Resource
 enum SOUND_EFFECT_TYPE {
 	UI_ACCEPT,
 	UI_CANCEL,
+	UI_SWOOP,
+	UI_HOVER,
+	SQUELCH,
 }
 
 @export_range(0.0, 10.0, 1.0) var limit : float = 5

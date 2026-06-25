@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://csja53kpc30oy"]
+
+[ext_resource type="FontFile" uid="uid://27pdhlcamif1" path="res://assets/art/ui/fonts/Beetype-Filled.otf" id="1_82vjo"]
+[ext_resource type="Script" uid="uid://dwnyarp4doxcg" path="res://source/ui/hud/controls_label.gd" id="1_ne8h5"]
+[ext_resource type="Texture2D" uid="uid://cdjakce3aket6" path="res://assets/art/ui/icons/Right Arrow.png" id="2_51o4o"]
+
+[sub_resource type="Animation" id="Animation_pmrqa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.7001018, 0.48117068, 0.11347871, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ne8h5"]
+resource_name = "fade_in_out"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.2, 2),
+"transitions": PackedFloat32Array(0.5, 1, 1, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 0.23529412), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.23529412)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:theme_override_colors/font_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.59508806, 0.40648594, 0.08990373, 1), Color(0.85276514, 0.74945277, 0.1554067, 1), Color(0.8509804, 0.7490196, 0.15686275, 1), Color(0.59508806, 0.40648594, 0.08990373, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_51o4o"]
+_data = {
+&"RESET": SubResource("Animation_pmrqa"),
+&"fade_in_out": SubResource("Animation_ne8h5")
+}
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_82vjo"]
+load_path = "res://.godot/imported/Left Arrow.png-02f88220663e425a5450d34dc1dc1dff.ctex"
+
+[node name="ControlsLabel" type="Label" unique_id=1199640817]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -305.0
+offset_right = 104.0
+offset_bottom = -210.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7001018, 0.48117068, 0.11347871, 1)
+theme_override_colors/font_outline_color = Color(0.21568628, 0.12941177, 0.078431375, 1)
+theme_override_constants/outline_size = 19
+theme_override_fonts/font = ExtResource("1_82vjo")
+theme_override_font_sizes/font_size = 69
+text = "CLIMB!"
+horizontal_alignment = 1
+script = ExtResource("1_ne8h5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=634007089]
+libraries/ = SubResource("AnimationLibrary_51o4o")
+
+[node name="Control" type="Control" parent="." unique_id=205558335]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=958898094]
+modulate = Color(1.1364014, 0.63597083, 0, 1)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 512.0
+grow_horizontal = 2
+scale = Vector2(0.125, 0.125)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_constants/separation = 869
+
+[node name="Panel2" type="PanelContainer" parent="Control/HBoxContainer" unique_id=218294250]
+layout_mode = 2
+
+[node name="Left" type="TextureRect" parent="Control/HBoxContainer/Panel2" unique_id=259225927]
+layout_mode = 2
+texture = SubResource("CompressedTexture2D_82vjo")
+
+[node name="Panel" type="PanelContainer" parent="Control/HBoxContainer" unique_id=80308947]
+layout_mode = 2
+
+[node name="Right" type="TextureRect" parent="Control/HBoxContainer/Panel" unique_id=1584091510]
+layout_mode = 2
+texture = ExtResource("2_51o4o")

@@ -2,12 +2,42 @@
 
 [ext_resource type="Script" uid="uid://ob5j2os1xjf6" path="res://source/core/autoloads/audio-manager/audio_manager.gd" id="1_synqu"]
 [ext_resource type="Script" uid="uid://cjs7lfaorj36b" path="res://source/resources/definitions/sound_effect_settings.gd" id="2_hnb1y"]
-[ext_resource type="AudioStream" uid="uid://bfoqug5cl01fd" path="res://assets/audio/sfx/bell-transition.wav" id="3_66g06"]
+[ext_resource type="AudioStream" uid="uid://c50xdy88ri0nl" path="res://assets/audio/sfx/whoosh_1.wav" id="3_hnb1y"]
+[ext_resource type="AudioStream" uid="uid://barhw7v7qko8e" path="res://assets/audio/sfx/universfield-slime-impact-352473.wav" id="4_psx8p"]
+[ext_resource type="AudioStream" uid="uid://03mdpjvwf656" path="res://assets/audio/sfx/ui_accept_buzz.wav" id="5_mvijs"]
+[ext_resource type="AudioStream" uid="uid://dnqctvixbe1i4" path="res://assets/audio/sfx/ui_hover_buzz.wav" id="6_gj53m"]
+[ext_resource type="AudioStream" uid="uid://cwahvfvj4xw2g" path="res://assets/audio/sfx/bees-in-hive-noise-reduced.mp3" id="7_gj53m"]
 
-[sub_resource type="Resource" id="Resource_psx8p"]
+[sub_resource type="Resource" id="Resource_synqu"]
 script = ExtResource("2_hnb1y")
-stream = ExtResource("3_66g06")
+limit = 10.0
+type = 2
+stream = ExtResource("3_hnb1y")
+volume_db = -10.0
+metadata/_custom_type_script = "uid://cjs7lfaorj36b"
+
+[sub_resource type="Resource" id="Resource_mvijs"]
+script = ExtResource("2_hnb1y")
+limit = 10.0
+stream = ExtResource("5_mvijs")
+volume_db = -5.0
+metadata/_custom_type_script = "uid://cjs7lfaorj36b"
+
+[sub_resource type="Resource" id="Resource_gj53m"]
+script = ExtResource("2_hnb1y")
+type = 3
+stream = ExtResource("6_gj53m")
+volume_db = -5.0
+randomness = 0.2
+metadata/_custom_type_script = "uid://cjs7lfaorj36b"
+
+[sub_resource type="Resource" id="Resource_gomhu"]
+script = ExtResource("2_hnb1y")
+limit = 1.0
+type = 4
+stream = ExtResource("4_psx8p")
 volume_db = -15.0
+pitch_scale = 0.9
 metadata/_custom_type_script = "uid://cjs7lfaorj36b"
 
 [sub_resource type="Animation" id="Animation_synqu"]
@@ -149,9 +179,13 @@ _data = {
 [node name="AudioManager" type="Node" unique_id=469364160]
 process_mode = 3
 script = ExtResource("1_synqu")
-sound_effect_settings = Array[ExtResource("2_hnb1y")]([SubResource("Resource_psx8p")])
+sound_effect_settings = Array[ExtResource("2_hnb1y")]([SubResource("Resource_synqu"), SubResource("Resource_mvijs"), SubResource("Resource_gj53m"), SubResource("Resource_gomhu")])
 
 [node name="BackgroundMusic" type="Node" parent="." unique_id=548327897]
+
+[node name="Ambient" type="AudioStreamPlayer" parent="BackgroundMusic" unique_id=1155057312]
+stream = ExtResource("7_gj53m")
+bus = &"Ambient"
 
 [node name="Track1" type="AudioStreamPlayer" parent="BackgroundMusic" unique_id=884292698]
 volume_db = -80.0
@@ -164,6 +198,6 @@ bus = &"Music"
 [node name="BGAnimations" type="AnimationPlayer" parent="BackgroundMusic" unique_id=695234333]
 libraries/ = SubResource("AnimationLibrary_66g06")
 
-[node name="SFX3D" type="Node3D" parent="." unique_id=1459552546]
+[node name="SFX2D" type="Node2D" parent="." unique_id=1870968664]
 
 [node name="SFX" type="Node" parent="." unique_id=1106451927]

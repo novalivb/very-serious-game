@@ -109,7 +109,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_gomhu"]
 resource_name = "swap_to_main_buttons"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -137,7 +137,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_u4x3k"]
 resource_name = "swap_to_settings"
-length = 0.19999999999999998
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -230,7 +230,6 @@ expand_mode = 1
 
 [node name="SettingsMenu" type="MarginContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer" unique_id=727394138]
 custom_minimum_size = Vector2(469, 0)
-clip_contents = true
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(569, 0)
@@ -242,7 +241,7 @@ theme_override_constants/margin_bottom = 60
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu" unique_id=435832363]
 layout_mode = 2
-theme_override_constants/separation = 32
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="SFXVolume" type="HBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=2060191599]
@@ -258,10 +257,29 @@ script = ExtResource("3_gomhu")
 bus = "SFX"
 
 [node name="SFX" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/SFXVolume" unique_id=2069358893]
-custom_minimum_size = Vector2(90, 0)
+custom_minimum_size = Vector2(110.69, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "SFX"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ambientVolume" type="HBoxContainer" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=1525152224]
+layout_mode = 2
+
+[node name="AmbientSlider" type="HSlider" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/ambientVolume" unique_id=652906802]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 69.0
+script = ExtResource("3_gomhu")
+bus = "Ambient"
+
+[node name="Ambient" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/ambientVolume" unique_id=1774214711]
+custom_minimum_size = Vector2(110.69, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Ambient"
 horizontal_alignment = 2
 vertical_alignment = 1
 
@@ -278,7 +296,7 @@ script = ExtResource("3_gomhu")
 bus = "Music"
 
 [node name="Music" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MusicVolume" unique_id=1966332769]
-custom_minimum_size = Vector2(90, 0)
+custom_minimum_size = Vector2(110.69, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Music"
@@ -298,7 +316,7 @@ script = ExtResource("3_gomhu")
 bus = "Master"
 
 [node name="Master" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MasterVolume" unique_id=1994442690]
-custom_minimum_size = Vector2(90, 0)
+custom_minimum_size = Vector2(110.69, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Master"

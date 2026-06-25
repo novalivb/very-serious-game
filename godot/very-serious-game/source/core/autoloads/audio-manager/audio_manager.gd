@@ -1,14 +1,16 @@
 extends Node
+## Audio Manager autoload which handles background music and sound effects
 
 signal crossfade_finished
 
 @export var sound_effect_settings : Array[SoundEffectSettings]
 
+@onready var ambient: AudioStreamPlayer = $BackgroundMusic/Ambient
 @onready var bg_track_1: AudioStreamPlayer = $BackgroundMusic/Track1
 @onready var bg_track_2: AudioStreamPlayer = $BackgroundMusic/Track2
 @onready var bg_animations: AnimationPlayer = $BackgroundMusic/BGAnimations
 @onready var sfx: Node = $SFX
-@onready var sfx_3d: Node3D = $SFX3D
+@onready var sfx_2d: Node2D = $SFX2D
 
 var sound_effect_dict : Dictionary[SoundEffectSettings.SOUND_EFFECT_TYPE, SoundEffectSettings] = {}
 
@@ -17,8 +19,15 @@ func _ready() -> void:
 
 #region music
 
+func play_ambient():
+	if not ambient.playing:
+		ambient.play()
 
-## Plays a track on the first available player
+func stop_ambient():
+	ambient.stop()
+
+## Plays a track on the first available player.
+## Does not stop the other player
 func play(new_stream : AudioStream):
 	if not bg_track_1.playing:
 		bg_track_1.stream = new_stream
@@ -97,7 +106,7 @@ func create_sound_effect(sound_effect_type : SoundEffectSettings.SOUND_EFFECT_TY
 	
 	new_sound_effect.play()
 
-func create_sound_effect_at(global_pos : Vector3, sound_effect_type : SoundEffectSettings.SOUND_EFFECT_TYPE):
+func create_sound_effect_at(global_pos : Vector2, sound_effect_type : SoundEffectSettings.SOUND_EFFECT_TYPE):
 	if not sound_effect_dict.has(sound_effect_type):
 		printerr("Tried to create a sound effect of unknown type: %s" %sound_effect_type)
 		return
@@ -110,9 +119,9 @@ func create_sound_effect_at(global_pos : Vector3, sound_effect_type : SoundEffec
 	sound_effect_setting.add_audio_count(1)
 	
 	# instantiate audio player node at global pos
-	var new_sound_effect := AudioStreamPlayer3D.new()
+	var new_sound_effect := AudioStreamPlayer2D.new()
 	new_sound_effect.bus = "SFX"
-	sfx_3d.add_child(new_sound_effect)
+	sfx_2d.add_child(new_sound_effect)
 	new_sound_effect.global_position = global_pos
 	
 	# get settings for type and apply to audio player

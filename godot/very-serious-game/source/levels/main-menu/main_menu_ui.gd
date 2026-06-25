@@ -30,13 +30,29 @@ func _ready() -> void:
 	update_high_score_label()
 	update_audio_settings()
 	
-	# connect buttons
+	# connect buttons pressed
 	start_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	settings_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	credits_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	quit_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	back_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	delete_high_score_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
+	
+	# connect buttons mouse entered to grab focus
+	start_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	settings_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	credits_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	quit_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	back_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	delete_high_score_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	
+	# connect buttons focused
+	start_button.focus_entered.connect(_on_menu_button_focused)
+	settings_button.focus_entered.connect(_on_menu_button_focused)
+	credits_button.focus_entered.connect(_on_menu_button_focused)
+	quit_button.focus_entered.connect(_on_menu_button_focused)
+	back_button.focus_entered.connect(_on_menu_button_focused)
+	delete_high_score_button.focus_entered.connect(_on_menu_button_focused)
 	
 	# connect sliders
 	master_slider.drag_ended.connect(_on_master_slider_drag_ended)
@@ -45,21 +61,33 @@ func _ready() -> void:
 
 #func load_settings():
 	#var sound_settings = ConfigFileHandler.load_audio_settings()
+func focus_button(button : Button):
+	button.grab_focus()
+
+func _on_menu_button_focused():
+	AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_HOVER)
 
 func _on_menu_button_pressed(button : Button):
 	match button:
 		start_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
 			button_animations.play("start_pressed")
 			start_game.emit()
 		settings_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_SWOOP)
 			swap_to_settings()
 		back_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_SWOOP)
 			swap_to_main_buttons()
 		delete_high_score_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
 			delete_high_score()
 		credits_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
 			show_credits()
 		quit_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
+			await AudioManager.sfx.get_child(0).finished
 			get_tree().quit()
 
 func swap_to_settings():
@@ -74,7 +102,7 @@ func delete_high_score():
 
 func update_high_score_label():
 	var high_score : int = ConfigFileHandler.load_player_settings()["high_score"] as int
-	high_value_label.text = "%d" %high_score
+	high_value_label.text = "%d00" %high_score
 
 func show_credits():
 	pass

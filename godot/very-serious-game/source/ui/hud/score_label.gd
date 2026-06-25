@@ -14,7 +14,7 @@ func _ready() -> void:
 func set_score(value : int):
 	if score_value_label == null:
 		await ready
-	score_value_label.text = "%d" %value
+	score_value_label.text = "%d00" %value
 	
 func get_high_score() -> int:
 	var player_settings = ConfigFileHandler.load_player_settings()
@@ -24,4 +24,4 @@ func get_high_score() -> int:
 func set_high(value : int):
 	if high_value_label == null:
 		await ready
-	high_value_label.text = "%d" %value
+	high_value_label.text = "%d00" %value

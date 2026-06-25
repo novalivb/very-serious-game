@@ -53,13 +53,15 @@ func free_hud():
 
 #region levels
 ## Loads main menu if auto start is off, otherwides loads the level
-## sand loading screen
+## sans loading screen
 func start_menu_or_game():
 	var level_scene : PackedScene
 	
 	if autostart:
 		level_scene = load_level_by_path(TEST_LEVEL_SCENE_UID)
 	else:
+		# load splash screen, intro if needed, and then menu
+		# TODO
 		level_scene = load_main_menu()
 	
 	if level_scene == null: return

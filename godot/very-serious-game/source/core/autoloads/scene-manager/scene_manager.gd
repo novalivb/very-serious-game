@@ -63,7 +63,7 @@ func loading_screen_transition_in(reverse : bool = false, transition_shader : St
 	loading_screen.loading_animation_player.play(animation_name)
 
 # currently does not change shader because it resets the screen and the fill param isn't set until the animation player
-func loading_screen_transition_out(reverse : bool = true, transition_shader : String = "random"):
+func loading_screen_transition_out(reverse : bool = true, _transition_shader : String = "random"):
 	if not loading_screen: return
 	
 	#loading_screen.call_deferred("set_transition_material", transition_shader)
