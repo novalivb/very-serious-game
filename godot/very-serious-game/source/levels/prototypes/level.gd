@@ -21,6 +21,7 @@ var player_y_pos : float = 0.0
 var score_label : ScoreLabel
 var controls_label : Label
 
+#region systems
 func _ready() -> void:
 	AudioManager.play_ambient()
 	if not character_player == null:
@@ -30,6 +31,15 @@ func _ready() -> void:
 	
 	create_score_label()
 	create_controls_label()
+	
+func _process(_delta: float) -> void:
+	if not enabled: return
+	
+	var previous_y_pos = player_y_pos
+	player_y_pos = min(player_y_pos, character_player.body.global_position.y)
+	
+	var height_gained_this_frame = min(0, player_y_pos - previous_y_pos)
+	add_height(-height_gained_this_frame)
 	
 func create_score_label():
 	score_label = load(SCORE_LABEL_SCENE_UID).instantiate() as ScoreLabel
@@ -43,48 +53,34 @@ func create_controls_label():
 	controls_label = load(CONTROLS_LABEL_SCENE_UID).instantiate() as Label
 	if controls_label == null: return
 	Global.mainScene.hud_root.add_child(controls_label)
-	
-
-#region systems
-func _process(_delta: float) -> void:
-	if not enabled: return
-	
-	var previous_y_pos = player_y_pos
-	player_y_pos = min(player_y_pos, character_player.body.global_position.y)
-	
-	var height_gained_this_frame = min(0, player_y_pos - previous_y_pos)
-	add_height(-height_gained_this_frame)
-	
 
 ## initializes level activity
 func start_level():
 	# anything missing?
-	if level_animations == null or character_player == null or camera_2d == null:
+	if level_animations == null or character_player == null or camera_2d == null or controls_label == null:
 		return
 	# sets up camera
 	level_animations.play("enter_player")
 	await level_animations.animation_finished
+	fade_in_controls_label()
 	controls_label.animation_player.play("fade_in_out")
 	player_y_pos = character_player.body.global_position.y
 	enabled = true
 	
-
-## load the current level again
-func reload_level():
-	AudioManager.crossfade_to(null)
-	save_score_if_record()
-	SceneManager.swap_level_to(self.scene_file_path)
+func fade_in_controls_label():
+	if controls_label == null: return
+	var tween = create_tween()
+	tween.tween_property(controls_label, "modulate:a", 1, 2)
 
 ## Called during "enter player" animation
 func setup_camera() -> void:
 	if not camera_2d == null and not character_player == null:
 		camera_2d.set_target(character_player.camera_target)
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("reload_current_level"):
-		reload_level()
 #endregion
 
+
+
+#region start gameplay
 func first_movement_trigger():
 	AudioManager.crossfade_to(background_music)
 	await get_tree().create_timer(3).timeout
@@ -107,10 +103,10 @@ func fade_out_controls_label():
 	var tween = create_tween()
 	tween.tween_property(controls_label, "modulate:a", 0.0, 1)
 	tween.tween_callback(controls_label.queue_free)
+#endregion
 
 
-
-
+#region gameplay dynamics
 func glob_player(glob : Glob):
 	# play sound
 	AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.SQUELCH)
@@ -133,6 +129,18 @@ func glob_player(glob : Glob):
 		position_target,
 		2
 		)
+#endregion
+
+#region utility functions
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("reload_current_level"):
+		reload_level()
+		
+## load the current level again
+func reload_level():
+	AudioManager.crossfade_to(null)
+	save_score_if_record()
+	SceneManager.swap_level_to(self.scene_file_path)
 
 ## Add height, convert to score
 func add_height(value : float):
@@ -157,3 +165,7 @@ func save_score_if_record():
 	if high_score >= score: return
 	
 	ConfigFileHandler.save_player_setting("high_score", score)
+	#endregion
+	
+	
+	

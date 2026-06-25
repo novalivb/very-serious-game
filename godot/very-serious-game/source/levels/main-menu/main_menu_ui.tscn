@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cc1f6ttqhj3u"]
 
 [ext_resource type="Script" uid="uid://b55ff8f0fupj1" path="res://source/levels/main-menu/main_menu_ui.gd" id="1_y3du3"]
+[ext_resource type="Texture2D" uid="uid://tbt3vxy2hcn0" path="res://assets/art/textures/hive/hive_outer.svg" id="2_7qoec"]
 [ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_u4x3k"]
 [ext_resource type="Script" uid="uid://bwfswwfx2u20h" path="res://source/ui/main-menu/volume_slider.gd" id="3_gomhu"]
+[ext_resource type="Texture2D" uid="uid://ctbh5ko8ayqmb" path="res://assets/art/ui/icons/logo.svg" id="3_q3qde"]
 
 [sub_resource type="Animation" id="Animation_nb24a"]
 length = 0.001
@@ -171,6 +173,15 @@ _data = {
 &"swap_to_settings": SubResource("Animation_u4x3k")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_82vjo"]
+texture = ExtResource("2_7qoec")
+expand_margin_left = 160.0
+expand_margin_top = 875.0
+expand_margin_right = 450.0
+expand_margin_bottom = 975.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jomo4"]
+
 [sub_resource type="Theme" id="Theme_kcpv0"]
 Button/font_sizes/font_size = 64
 
@@ -188,6 +199,7 @@ unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_6g5xe")
 
 [node name="Panel" type="Panel" parent="." unique_id=1080676507]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -195,6 +207,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 offset_transform_enabled = true
+theme_override_styles/panel = SubResource("StyleBoxTexture_82vjo")
 
 [node name="ScreenMargins" type="MarginContainer" parent="Panel" unique_id=1843720785]
 layout_mode = 1
@@ -211,10 +224,16 @@ theme_override_constants/margin_bottom = 60
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/ScreenMargins" unique_id=2001189319]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/ScreenMargins/HBoxContainer" unique_id=1221518944]
-custom_minimum_size = Vector2(300, 0)
+[node name="LogoPanel" type="PanelContainer" parent="Panel/ScreenMargins/HBoxContainer" unique_id=1468437850]
+custom_minimum_size = Vector2(435.77, 0)
 layout_mode = 2
-text = "GUH"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jomo4")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/ScreenMargins/HBoxContainer/LogoPanel" unique_id=1332550716]
+layout_mode = 2
+texture = ExtResource("3_q3qde")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/ScreenMargins/HBoxContainer" unique_id=814743834]
 layout_mode = 2
@@ -398,25 +417,9 @@ alignment = 2
 
 [node name="ScoreBox" type="HBoxContainer" parent="Panel/ScreenMargins" unique_id=1893080343]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 8
 theme_override_constants/separation = 32
-
-[node name="Labels" type="VBoxContainer" parent="Panel/ScreenMargins/ScoreBox" unique_id=1311871018]
-layout_mode = 2
-
-[node name="HighTextLabel" type="RichTextLabel" parent="Panel/ScreenMargins/ScoreBox/Labels" unique_id=1793933852]
-clip_contents = false
-layout_mode = 2
-theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
-theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
-theme_override_constants/outline_size = 16
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[wave amp=16
-.0freq=8.0connected=1]HIGH SCORE:[/wave] "
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
+alignment = 2
 
 [node name="Scores" type="VBoxContainer" parent="Panel/ScreenMargins/ScoreBox" unique_id=2118346263]
 layout_mode = 2
@@ -432,6 +435,23 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "0
 "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Labels" type="VBoxContainer" parent="Panel/ScreenMargins/ScoreBox" unique_id=1311871018]
+layout_mode = 2
+
+[node name="HighTextLabel" type="RichTextLabel" parent="Panel/ScreenMargins/ScoreBox/Labels" unique_id=1793933852]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(1.1008143, 0.7957765, 0.23296005, 1)
+theme_override_colors/font_outline_color = Color(0.21176471, 0.13333334, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=16
+.0freq=8.0connected=1]:HIGH SCORE[/wave] "
 fit_content = true
 scroll_active = false
 autowrap_mode = 0

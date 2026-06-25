@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://0p0ifxkhcgrr"]
 
 [ext_resource type="Script" uid="uid://bt2uvdjg25260" path="res://source/levels/prototypes/level.gd" id="1_hdybb"]
-[ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_rcjmc"]
 [ext_resource type="AudioStream" uid="uid://cuuxfp5ix335y" path="res://assets/audio/music/Buzz From Beyond.wav" id="2_rl53p"]
+[ext_resource type="Texture2D" uid="uid://c5lsy8mwnrrbw" path="res://assets/art/textures/honeycomb/honeycomb2.svg" id="3_hdybb"]
 [ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="4_bmmj4"]
 [ext_resource type="PackedScene" uid="uid://jkjaitqvxsd2" path="res://source/levels/level-objects/path_spawner.tscn" id="5_wdmp5"]
 [ext_resource type="PackedScene" uid="uid://ltxit4c5w0np" path="res://source/levels/level-objects/glob.tscn" id="6_snyqg"]
@@ -137,7 +137,7 @@ repeat_size = Vector2(786, 1152)
 repeat_times = 3
 
 [node name="Homeycomb" type="Sprite2D" parent="Parallax2D2" unique_id=1201863165]
-texture = ExtResource("2_rcjmc")
+texture = ExtResource("3_hdybb")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=332792044]
 zoom = Vector2(0.69, 0.69)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Homey Bee"
-config/version="0.5"
+config/version="0.8"
 run/main_scene="uid://d4qkvktf6bjg"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://muc1b7801yrh"
