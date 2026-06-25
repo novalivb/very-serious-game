@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_u4x3k"]
 [ext_resource type="Script" uid="uid://bwfswwfx2u20h" path="res://source/ui/main-menu/volume_slider.gd" id="3_gomhu"]
 [ext_resource type="Texture2D" uid="uid://ctbh5ko8ayqmb" path="res://assets/art/ui/icons/logo.svg" id="3_q3qde"]
+[ext_resource type="Theme" uid="uid://nmfdy4s2hk1w" path="res://source/resources/gui_theme.tres" id="6_oi1lf"]
 
 [sub_resource type="Animation" id="Animation_nb24a"]
 length = 0.001
@@ -173,6 +174,68 @@ _data = {
 &"swap_to_settings": SubResource("Animation_u4x3k")
 }
 
+[sub_resource type="Animation" id="Animation_oi1lf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/LogoPanel/Logo:offset_transform_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/LogoPanel/Logo:offset_transform_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_s3xxt"]
+resource_name = "wiggle"
+length = 16.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel/ScreenMargins/HBoxContainer/LogoPanel/Logo:offset_transform_rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4.0666666, 6, 8, 10, 12, 14),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.13962634, 0.0, -0.13962634, 0.0, 0.13962634, 0.0, -0.13962634015954636]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Panel/ScreenMargins/HBoxContainer/LogoPanel/Logo:offset_transform_scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.00999999, 0.4, 0.8, 1.2, 1.6, 1.99, 2.39, 2.79, 3.2, 3.5900002, 3.99, 4.3900003, 4.8, 5.19, 5.59, 5.9900002, 6.42476, 6.8147597, 7.21476, 7.61476, 8, 8.389999, 8.79, 9.190001, 9.615939, 10.005939, 10.405939, 10.790001, 11.215939, 11.605938, 12.005939, 12.415938, 12.815939, 13.19, 13.59, 14.015939, 14.4, 14.77406, 15.174061, 15.599999),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3g7se"]
+_data = {
+&"RESET": SubResource("Animation_oi1lf"),
+&"wiggle": SubResource("Animation_s3xxt")
+}
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_82vjo"]
 texture = ExtResource("2_7qoec")
 expand_margin_left = 160.0
@@ -181,9 +244,6 @@ expand_margin_right = 450.0
 expand_margin_bottom = 975.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jomo4"]
-
-[sub_resource type="Theme" id="Theme_kcpv0"]
-Button/font_sizes/font_size = 64
 
 [node name="MainMenuUI" type="Control" unique_id=2141015559]
 layout_mode = 3
@@ -198,8 +258,11 @@ script = ExtResource("1_y3du3")
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_6g5xe")
 
+[node name="LogoAnimations" type="AnimationPlayer" parent="." unique_id=1161691701]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_3g7se")
+
 [node name="Panel" type="Panel" parent="." unique_id=1080676507]
-clip_contents = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -229,8 +292,9 @@ custom_minimum_size = Vector2(435.77, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_jomo4")
 
-[node name="TextureRect" type="TextureRect" parent="Panel/ScreenMargins/HBoxContainer/LogoPanel" unique_id=1332550716]
+[node name="Logo" type="TextureRect" parent="Panel/ScreenMargins/HBoxContainer/LogoPanel" unique_id=1332550716]
 layout_mode = 2
+offset_transform_enabled = true
 texture = ExtResource("3_q3qde")
 expand_mode = 1
 stretch_mode = 5
@@ -276,9 +340,9 @@ script = ExtResource("3_gomhu")
 bus = "SFX"
 
 [node name="SFX" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/SFXVolume" unique_id=2069358893]
-custom_minimum_size = Vector2(110.69, 0)
+custom_minimum_size = Vector2(89.115, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("6_oi1lf")
 text = "SFX"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -295,9 +359,9 @@ script = ExtResource("3_gomhu")
 bus = "Ambient"
 
 [node name="Ambient" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/ambientVolume" unique_id=1774214711]
-custom_minimum_size = Vector2(110.69, 0)
+custom_minimum_size = Vector2(89.115, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("6_oi1lf")
 text = "Ambient"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -315,9 +379,9 @@ script = ExtResource("3_gomhu")
 bus = "Music"
 
 [node name="Music" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MusicVolume" unique_id=1966332769]
-custom_minimum_size = Vector2(110.69, 0)
+custom_minimum_size = Vector2(89.115, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("6_oi1lf")
 text = "Music"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -335,9 +399,9 @@ script = ExtResource("3_gomhu")
 bus = "Master"
 
 [node name="Master" type="Label" parent="Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/MasterVolume" unique_id=1994442690]
-custom_minimum_size = Vector2(110.69, 0)
+custom_minimum_size = Vector2(89.115, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("6_oi1lf")
 text = "Master"
 horizontal_alignment = 2
 
@@ -355,6 +419,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("6_oi1lf")
 theme_override_font_sizes/font_size = 20
 text = "YES"
 
@@ -370,6 +435,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 69)
 layout_mode = 2
 size_flags_vertical = 8
+theme = ExtResource("6_oi1lf")
 theme_override_font_sizes/font_size = 32
 text = "BACK"
 
@@ -387,7 +453,7 @@ unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_pivot_ratio = Vector2(0, 0)
-theme = SubResource("Theme_kcpv0")
+theme = ExtResource("6_oi1lf")
 text = "START"
 alignment = 2
 
@@ -395,7 +461,7 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
-theme = SubResource("Theme_kcpv0")
+theme = ExtResource("6_oi1lf")
 text = "SETTINGS"
 alignment = 2
 
@@ -403,7 +469,7 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
-theme = SubResource("Theme_kcpv0")
+theme = ExtResource("6_oi1lf")
 text = "CREDITS"
 alignment = 2
 
@@ -411,7 +477,7 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 offset_transform_enabled = true
-theme = SubResource("Theme_kcpv0")
+theme = ExtResource("6_oi1lf")
 text = "QUIT"
 alignment = 2
 

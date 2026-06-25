@@ -3,6 +3,7 @@ extends Control
 signal start_game
 
 @onready var button_animations: AnimationPlayer = %ButtonAnimations
+@onready var logo_animations: AnimationPlayer = %LogoAnimations
 @onready var high_value_label: RichTextLabel = %HighValueLabel
 
 # buttons
@@ -26,6 +27,7 @@ signal start_game
 const MENU_OFFSCREEN_OFFSET : float = 1069
 
 func _ready() -> void:
+	logo_animations.play("wiggle")
 	settings_menu.offset_transform_position.x = MENU_OFFSCREEN_OFFSET
 	update_high_score_label()
 	update_audio_settings()
