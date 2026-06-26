@@ -32,7 +32,7 @@ var controls_label : Label
 
 var player_y_pos : float = 0.0
 var height_gained_since_start : float = 0.0
-var current_height_threshold : float = 0.0
+var current_height_threshold_index : float = 1
 var score : int = 0
 var height_since_last_score : float = 0.0
 var height_since_last_sticky : float = 0.0
@@ -63,8 +63,9 @@ func _process(_delta: float) -> void:
 	
 func set_threshold_values(threshold : float):
 	if not HEIGHT_THRESHOLD_DATA.has(threshold): return
-	current_height_threshold = threshold
 	
+	if threshold == 100000:
+		print("100,000")
 	var height_threshold_vector = HEIGHT_THRESHOLD_DATA[threshold]
 	glob_spawner.base_time_to_spawn = height_threshold_vector.x
 	sticky_spawn_height_threshold = height_threshold_vector.y
@@ -186,16 +187,19 @@ func reload_level():
 func add_height(value : float):
 	if value == 0: return
 	# add total height
-	height_gained_since_start += max(0, height_gained_since_start + value)
+	height_gained_since_start = max(0, height_gained_since_start + value)
 	
-	# check for height threshold criteria by iterating over threshold
-	# keys in reverse order
-	for i in HEIGHT_THRESHOLD_DATA.keys().size():
-		var current_key = HEIGHT_THRESHOLD_DATA.keys()[-i] as float
-		if current_key == null: return
-		if height_gained_since_start > current_key and height_gained_since_start > current_height_threshold:
-			set_threshold_values(current_key)
-			break
+	# check for height threshold criteria
+	# manual for now
+	if height_gained_since_start > 100000:
+		set_threshold_values(100000)
+	elif height_gained_since_start > 50000:
+		set_threshold_values(50000)
+	elif height_gained_since_start > 20000:
+		set_threshold_values(20000)
+	elif height_gained_since_start > 10000:
+		set_threshold_values(10000)
+	
 	
 	# add score if needed
 	height_since_last_score = max(0, height_since_last_score + value)
