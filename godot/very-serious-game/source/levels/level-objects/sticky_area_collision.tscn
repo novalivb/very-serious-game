@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bkmru2itv11x1"]
+
+[node name="StickyAreaCollision" type="CollisionShape2D" unique_id=1841647417]
+debug_color = Color(0.18666682, 0, 0.7, 0.41960785)

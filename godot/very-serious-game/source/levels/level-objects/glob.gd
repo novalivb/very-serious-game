@@ -5,7 +5,7 @@ class_name Glob extends RigidBody2D
 
 func _ready() -> void:
 	linear_velocity.x = randf_range(0, 400)
-	angular_velocity = linear_velocity.x / TAU
+	angular_velocity = linear_velocity.x / (TAU * 2)
 	if position.x > 0: # always point toward world center (level center) NOT CAMERA CENTER
 		angular_velocity *= -1
 		linear_velocity.x *= -1

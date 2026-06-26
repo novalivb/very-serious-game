@@ -1,4 +1,7 @@
 class_name PathSpawner extends Node2D
+## generic entity spawner which picks a random position along a path and
+## instantiates its exported scene there every time its timer elapses
+## can also spawn on command while inctive
 
 @export var scene_to_spawn : PackedScene
 @export var path : Path2D
@@ -6,7 +9,6 @@ class_name PathSpawner extends Node2D
 @export_range(1, 15, 0.1) var base_time_to_spawn : float = 2
 @export_range(0.0, 1.0, 0.1) var randomness :  float = 0
 
-@onready var path_spawner: Node2D = %PathSpawner
 
 var actual_time_to_spawn : float = 0.0
 var time_since_last_spawn : float = 0.0
@@ -26,8 +28,8 @@ func _process(delta: float) -> void:
 		spawn_scene()
 	
 func spawn_scene():
-	if scene_to_spawn == null : return
-	if Global.mainScene == null : return
+	if scene_to_spawn == null : return null
+	if Global.mainScene == null : return null
 	
 	var path_progress_ratio_target = randf()
 	path_follow.progress_ratio = path_progress_ratio_target
@@ -35,6 +37,6 @@ func spawn_scene():
 	
 	var new_scene = scene_to_spawn.instantiate() as Node2D
 	if new_scene == null:
-		return
+		return null
 	new_scene.global_position = glo_pos
 	Global.mainScene.entity_root.add_child(new_scene)

@@ -36,6 +36,9 @@ var is_grabbing_left : bool = false
 var is_grabbing_right : bool = false
 var current_angle : float = 0.0
 var has_taken_first_movement : bool = false
+var sticky_rotation_multiplier : float = 1.0
+
+const STICKY_ROTATION_PENALTY : float = 0.5
 
 func repivot_to(glo_pos : Vector2):
 	if not enabled or body == null:
@@ -88,11 +91,13 @@ func _physics_process(delta: float) -> void:
 			globbed.emit(collider)
 			return
 			
-	# rotate if needed
+	# rotate and slide
 	var rotational_velocity = get_angular_direction() * default_rotational_speed * delta
+	rotational_velocity *= sticky_rotation_multiplier
 	if not rotational_velocity == 0.0 and not has_taken_first_movement:
 		has_taken_first_movement = true
 		first_movement_taken.emit()
+		
 	rotate(rotational_velocity)
 	
 	move_and_slide()
@@ -123,6 +128,11 @@ func release_left():
 	if is_grabbing_right:
 		repivot_to(r_hand.global_position)
 
+func enter_sticky():
+	sticky_rotation_multiplier = STICKY_ROTATION_PENALTY
+
+func exit_sticky():
+	sticky_rotation_multiplier = 1.0
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	#if not enabled: return

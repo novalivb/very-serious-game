@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://c5i52rq2hkr3v"]
+
+[ext_resource type="Script" uid="uid://2npnv6rn03it" path="res://source/levels/level-objects/sticky_area.gd" id="1_exrxi"]
+[ext_resource type="PackedScene" uid="uid://bkmru2itv11x1" path="res://source/levels/level-objects/sticky_area_collision.tscn" id="2_4k5vd"]
+
+[node name="StickyArea" type="Area2D" unique_id=138954169]
+collision_layer = 4
+script = ExtResource("1_exrxi")
+
+[node name="StickyAreaCollision" parent="." unique_id=1841647417 instance=ExtResource("2_4k5vd")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

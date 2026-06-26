@@ -5,21 +5,38 @@ signal score_updated(new_score : int)
 @export var enabled : bool = false
 
 @export var background_music : AudioStream
+#@export var sticky_area_scene : PackedScene
 
 @onready var camera_2d: ConstrainedCamera = $Camera2D
 @onready var character_player: CharacterPlayer = $CharacterPlayer
 @onready var level_animations: AnimationPlayer = %LevelAnimations
-@onready var path_spawner: PathSpawner = %PathSpawner
+@onready var glob_spawner: PathSpawner = %GlobSpawner
+@onready var sticky_area_spawner: PathSpawner = %StickyAreaSpawner
 
 const SCORE_LABEL_SCENE_UID : String = "uid://cnwslaj5obs67"
 const CONTROLS_LABEL_SCENE_UID : String = "uid://csja53kpc30oy"
 const HEIGHT_SCORE_CONVERSION_RATE = 50
 
-var height_gained : float = 0.0
-var score : int = 0
-var player_y_pos : float = 0.0
+# [height, dynamic values]
+# dynamic values: [glob spawning rate, sticky area spawning rate, powerup spawning rate
+const HEIGHT_THRESHOLD_DATA : Dictionary[float, Vector3] = {
+	0.0: 		Vector3(4, 1000, 0.0),
+	10000.0: 	Vector3(3, 750, 0.0),
+	20000.0: 	Vector3(2, 500, 0.0),
+	50000.0: 	Vector3(1, 250, 0.0),
+	100000.0: 	Vector3(0.5, 250, 0.0),
+}
+
 var score_label : ScoreLabel
 var controls_label : Label
+
+var player_y_pos : float = 0.0
+var height_gained_since_start : float = 0.0
+var current_height_threshold : float = 0.0
+var score : int = 0
+var height_since_last_score : float = 0.0
+var height_since_last_sticky : float = 0.0
+var sticky_spawn_height_threshold: float = HEIGHT_THRESHOLD_DATA[0.0].y
 
 #region systems
 func _ready() -> void:
@@ -32,6 +49,9 @@ func _ready() -> void:
 	create_score_label()
 	create_controls_label()
 	
+	# set default threshold values
+	set_threshold_values(0.0)
+	
 func _process(_delta: float) -> void:
 	if not enabled: return
 	
@@ -41,6 +61,15 @@ func _process(_delta: float) -> void:
 	var height_gained_this_frame = min(0, player_y_pos - previous_y_pos)
 	add_height(-height_gained_this_frame)
 	
+func set_threshold_values(threshold : float):
+	if not HEIGHT_THRESHOLD_DATA.has(threshold): return
+	current_height_threshold = threshold
+	
+	var height_threshold_vector = HEIGHT_THRESHOLD_DATA[threshold]
+	glob_spawner.base_time_to_spawn = height_threshold_vector.x
+	sticky_spawn_height_threshold = height_threshold_vector.y
+	# TODO powerups get height_threshold_vector.z
+
 func create_score_label():
 	score_label = load(SCORE_LABEL_SCENE_UID).instantiate() as ScoreLabel
 	if score_label == null: return
@@ -86,12 +115,18 @@ func first_movement_trigger():
 	await get_tree().create_timer(3).timeout
 	fade_out_controls_label()
 	await get_tree().create_timer(7).timeout
-	activate_spawner()
+	activate_spawners()
 	fade_in_score_label()
 
-func activate_spawner():
-	if path_spawner == null: return
-	path_spawner.active = true
+func activate_spawners():
+	if not glob_spawner == null:
+		glob_spawner.active = true
+	
+	# sticky areas should be spawned by climb progress,
+	# instead of on a timer
+	#if not sticky_area_spawner == null:
+		#sticky_area_spawner.active = true
+	
 
 func fade_in_score_label():
 	if score_label == null: return
@@ -107,6 +142,7 @@ func fade_out_controls_label():
 
 
 #region gameplay dynamics
+## freeze glob, attach to player and kill player
 func glob_player(glob : Glob):
 	# play sound
 	AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.SQUELCH)
@@ -117,8 +153,6 @@ func glob_player(glob : Glob):
 	glob.reparent(character_player.glob_target)
 	glob.position = Vector2.ZERO
 	
-	# play impact animations and sound
-	# TODO
 	
 	# tween player position down off-screen
 	var tween = create_tween()
@@ -129,6 +163,12 @@ func glob_player(glob : Glob):
 		position_target,
 		2
 		)
+
+## spawn sticky area on sticky area spawner path
+func spawn_sticky_area():
+	if sticky_area_spawner == null or character_player == null: return
+	
+	sticky_area_spawner.spawn_scene()
 #endregion
 
 #region utility functions
@@ -145,18 +185,38 @@ func reload_level():
 ## Add height, convert to score
 func add_height(value : float):
 	if value == 0: return
+	# add total height
+	height_gained_since_start += max(0, height_gained_since_start + value)
 	
-	height_gained = max(0, height_gained + value)
-	if height_gained > HEIGHT_SCORE_CONVERSION_RATE:
-		while height_gained > HEIGHT_SCORE_CONVERSION_RATE:
+	# check for height threshold criteria by iterating over threshold
+	# keys in reverse order
+	for i in HEIGHT_THRESHOLD_DATA.keys().size():
+		var current_key = HEIGHT_THRESHOLD_DATA.keys()[-i] as float
+		if current_key == null: return
+		if height_gained_since_start > current_key and height_gained_since_start > current_height_threshold:
+			set_threshold_values(current_key)
+			break
+	
+	# add score if needed
+	height_since_last_score = max(0, height_since_last_score + value)
+	if height_since_last_score > HEIGHT_SCORE_CONVERSION_RATE:
+		while height_since_last_score > HEIGHT_SCORE_CONVERSION_RATE:
 			add_score(1)
-			height_gained -= HEIGHT_SCORE_CONVERSION_RATE
+			height_since_last_score -= HEIGHT_SCORE_CONVERSION_RATE
+	
+	# spawn sticky area if needed
+	height_since_last_sticky = max(0, height_since_last_sticky + value)
+	if height_since_last_sticky >= sticky_spawn_height_threshold:
+		while height_since_last_sticky > sticky_spawn_height_threshold:
+			spawn_sticky_area()
+			height_since_last_sticky -= sticky_spawn_height_threshold
 
 ## Add score, minimum 0
 func add_score(value : int):
 	if value == 0: return
 	
 	score = max(0, score + value)
+	save_score_if_record()
 	score_updated.emit(score)
 	
 func save_score_if_record():
@@ -165,6 +225,9 @@ func save_score_if_record():
 	if high_score >= score: return
 	
 	ConfigFileHandler.save_player_setting("high_score", score)
+	
+	if not score_label == null:
+		score_label.set_high(score)
 	#endregion
 	
 	

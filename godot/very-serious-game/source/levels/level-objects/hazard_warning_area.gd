@@ -2,7 +2,8 @@ class_name HazardWarningArea extends Area2D
 ## Hazard Warning Area.
 ## For each hazard in area, tries to place a
 ## hazard warning where each hazard is in the area,
-## but constrained to the bounds of the HUD
+## but constrained to the bounds of the HUD.
+## currently limited to globs
 
 
 
@@ -12,7 +13,8 @@ var hazard_warning_dict : Dictionary[RigidBody2D, WarningLabel] = {}
 # When a hazard enters the body (collision layer filter), create a matching
 # warning label on the HUD, tracking the hazard
 func _on_body_entered(body: RigidBody2D) -> void:
-	_attach_warning_label_to_hazard(body)
+	if body is Glob:
+		_attach_warning_label_to_hazard(body)
 
 # creates a warning label node and links it to the hazard in the dict
 func _attach_warning_label_to_hazard(hazard : RigidBody2D):
