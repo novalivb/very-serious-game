@@ -24,7 +24,7 @@ _data = {
 point_count = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jomo4"]
-size = Vector2(2322, 765)
+size = Vector2(2322, 2343)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xjsbg"]
 size = Vector2(10124, 300)
@@ -192,7 +192,7 @@ monitorable = false
 script = ExtResource("7_rtxjm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/CameraTopAnchor/HazardWarningArea" unique_id=1409999694]
-position = Vector2(0, 3.5)
+position = Vector2(0, -785.5)
 shape = SubResource("RectangleShape2D_jomo4")
 debug_color = Color(0.97040695, 0.17443639, 1.92523e-07, 0.41960785)
 

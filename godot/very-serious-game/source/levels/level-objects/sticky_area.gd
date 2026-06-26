@@ -4,6 +4,8 @@ class_name StickyArea extends Area2D
 @onready var sticky_area_collision: CollisionShape2D = $StickyAreaCollision
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
+var entered_screen : bool = false
+
 enum SIZE {
 	SMALL,			# 250x250
 	WIDE,			# 500x250
@@ -42,6 +44,10 @@ func _ready() -> void:
 	
 	# get correct size sprite
 	sprite_2d.texture = sprites_dict[shape_size_index]
+	
+	# randomize scale
+	var random_scale_factor : float = randf_range(0.9,1.5)
+	scale *= random_scale_factor
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -50,3 +56,13 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body is CharacterPlayer:
 		body.exit_sticky()
+
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	entered_screen = true
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	if not entered_screen: return
+	print_debug("Freed Honey Patch: %s" %name)
+	queue_free()

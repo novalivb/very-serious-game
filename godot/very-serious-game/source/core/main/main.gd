@@ -18,6 +18,7 @@ class_name Main extends Node
 @onready var transitions_root: Control = %TransitionsRoot
 @onready var debug_root: Control = %DebugRoot
 
+@onready var pause_screen: PauseScreen = %PauseScreen
 
 
 const MAIN_MENU_SCENE_UID : String = "uid://cegnn4fyiak8c"
@@ -31,6 +32,9 @@ func _init() -> void:
 
 func _ready() -> void:
 	start_menu_or_game()
+	if not pause_screen == null:
+		pause_screen.unpause_requested.connect(unpause)
+		pause_screen.menu_requested.connect(start_menu_or_game)
 
 func get_hud_root() -> Control:
 	return hud_root
@@ -51,10 +55,23 @@ func free_hud():
 	for child in hud_root.get_children():
 		child.queue_free()
 
+func pause():
+	get_tree().paused = true
+	if not pause_screen.visible:
+		pause_screen.show()
+
+func unpause():
+	get_tree().paused = false
+	if pause_screen.visible:
+		pause_screen.hide()
+	
+
 #region levels
 ## Loads main menu if auto start is off, otherwides loads the level
 ## sans loading screen
 func start_menu_or_game():
+	unpause()
+	
 	var level_scene : PackedScene
 	
 	if autostart:
@@ -116,6 +133,10 @@ const WARNING_LABEL_TOP_MARGIN : float = 60
 func create_warning_label(target_node : Node2D) -> WarningLabel:
 	var new_warning_label = warning_label_scene.instantiate() as WarningLabel
 	new_warning_label.target_node = target_node
+	if target_node is Glob:
+		new_warning_label.scale = Vector2.ONE * target_node.random_scale_factor
+		if target_node.random_scale_factor == Glob.GIGA_GLOB_SCALE:
+			new_warning_label.play_giga_warning()
 	hud_root.add_child(new_warning_label)
 	new_warning_label.position = Vector2(500, 60)
 	return new_warning_label

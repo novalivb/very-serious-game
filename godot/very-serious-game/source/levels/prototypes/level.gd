@@ -105,6 +105,11 @@ func fade_in_controls_label():
 func setup_camera() -> void:
 	if not camera_2d == null and not character_player == null:
 		camera_2d.set_target(character_player.camera_target)
+		
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		Global.mainScene.pause()
+
 #endregion
 
 

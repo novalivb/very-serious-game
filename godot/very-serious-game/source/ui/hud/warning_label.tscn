@@ -3,15 +3,55 @@
 [ext_resource type="FontFile" uid="uid://g5sgav4g13yi" path="res://assets/art/ui/fonts/WolveSymbol.ttf" id="1_hh6gr"]
 [ext_resource type="Script" uid="uid://y6cu2n1blv6l" path="res://source/ui/hud/warning_label.gd" id="2_5b2r8"]
 
+[sub_resource type="Animation" id="Animation_5b2r8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_as05f"]
+resource_name = "giga_warning"
+length = 0.39999999999999997
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tjw20"]
+_data = {
+&"RESET": SubResource("Animation_5b2r8"),
+&"giga_warning": SubResource("Animation_as05f")
+}
+
 [node name="WarningLabel" type="RichTextLabel" unique_id=1322544779]
+modulate = Color(1, 0, 0, 1)
+z_index = 2
 custom_minimum_size = Vector2(0, 128)
 offset_right = 1.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
-theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_colors/default_color = Color(0.9019608, 0.31764707, 0.1254902, 1)
 theme_override_colors/font_outline_color = Color(0.16862746, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("1_hh6gr")
-theme_override_font_sizes/normal_font_size = 96
+theme_override_font_sizes/normal_font_size = 69
 bbcode_enabled = true
 text = "[wave amp=48.0 freq=16.0 connected=1]r[/wave]"
 fit_content = true
@@ -21,3 +61,6 @@ autowrap_trim_flags = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_5b2r8")
+
+[node name="GigaGlobAnimation" type="AnimationPlayer" parent="." unique_id=1809381970]
+libraries/ = SubResource("AnimationLibrary_tjw20")

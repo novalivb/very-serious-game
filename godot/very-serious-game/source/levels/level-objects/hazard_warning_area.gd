@@ -29,3 +29,4 @@ func _create_warning_label(target_hazard : RigidBody2D) -> WarningLabel:
 func _on_body_exited(body: RigidBody2D) -> void:
 	if hazard_warning_dict.has(body):
 		hazard_warning_dict[body].queue_free()
+		hazard_warning_dict.erase(body)

@@ -1,17 +1,19 @@
 class_name PauseScreen extends Control
 
-signal unpaused
+signal unpause_requested
+signal menu_requested
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
-		get_viewport().set_input_as_handled()
-		unpause()
+@onready var resume_button: Button = %ResumeButton
+@onready var menu_button: Button = %MenuButton
 
-func unpause():
-	Global.toggle_mouse_capture()
-	unpaused.emit()
-	get_tree().paused = false
+func _ready() -> void:
+	resume_button.pressed.connect(_on_pause_screen_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
+	menu_button.pressed.connect(_on_pause_screen_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 
 
-func _on_button_pressed() -> void:
-	unpause()
+func _on_pause_screen_button_pressed(button : Button):
+	match button:
+		resume_button:
+			unpause_requested.emit()
+		menu_button:
+			menu_requested.emit()
