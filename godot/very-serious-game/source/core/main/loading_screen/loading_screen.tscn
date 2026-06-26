@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://s5ie8pa5b43e" path="res://source/core/main/loading_screen/loading_screen.gd" id="1_k0isp"]
 [ext_resource type="Material" uid="uid://eaoykg61k5yr" path="res://source/shaders/materials/shape_scale_circle.tres" id="2_k0isp"]
+[ext_resource type="Theme" uid="uid://nmfdy4s2hk1w" path="res://source/resources/gui_theme.tres" id="3_hqtdh"]
 
 [sub_resource type="Animation" id="Animation_crdjx"]
 length = 0.001
@@ -249,6 +250,7 @@ theme_override_constants/margin_bottom = 20
 visible = false
 layout_mode = 2
 mouse_filter = 2
+theme = ExtResource("3_hqtdh")
 theme_override_font_sizes/normal_font_size = 64
 text = "LOADING"
 scroll_active = false

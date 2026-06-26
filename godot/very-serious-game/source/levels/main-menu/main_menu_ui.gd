@@ -13,10 +13,13 @@ signal start_game
 @onready var quit_button: Button = %QuitButton
 @onready var back_button: Button = %BackButton
 @onready var delete_high_score_button: Button = %DeleteHighScoreButton
+@onready var credits_back_button: Button = %CreditsBackButton
 
-# main buttons/settings pair
-@onready var settings_menu: MarginContainer = $Panel/ScreenMargins/HBoxContainer/MarginContainer/SettingsMenu
-@onready var main_buttons: VBoxContainer = $Panel/ScreenMargins/HBoxContainer/MarginContainer/MainButtons
+# ui panels
+@onready var settings_menu: MarginContainer = %SettingsMenu
+@onready var main_buttons: VBoxContainer = %MainButtons
+@onready var credits: MarginContainer = %Credits
+@onready var menu: MarginContainer = %Menu
 
 # volume sliders
 @onready var sfx_slider: VolumeSlider = %SFXSlider
@@ -39,6 +42,7 @@ func _ready() -> void:
 	quit_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	back_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	delete_high_score_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
+	credits_back_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	
 	# connect buttons mouse entered to grab focus
 	start_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
@@ -47,6 +51,7 @@ func _ready() -> void:
 	quit_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
 	back_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
 	delete_high_score_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	credits_back_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
 	
 	# connect buttons focused
 	start_button.focus_entered.connect(_on_menu_button_focused)
@@ -55,14 +60,14 @@ func _ready() -> void:
 	quit_button.focus_entered.connect(_on_menu_button_focused)
 	back_button.focus_entered.connect(_on_menu_button_focused)
 	delete_high_score_button.focus_entered.connect(_on_menu_button_focused)
+	credits_back_button.focus_entered.connect(_on_menu_button_focused)
 	
 	# connect sliders
 	master_slider.drag_ended.connect(_on_master_slider_drag_ended)
 	sfx_slider.drag_ended.connect(_on_sfx_slider_drag_ended)
 	music_slider.drag_ended.connect(_on_music_slider_drag_ended)
+	
 
-#func load_settings():
-	#var sound_settings = ConfigFileHandler.load_audio_settings()
 func focus_button(button : Button):
 	button.grab_focus()
 
@@ -89,8 +94,11 @@ func _on_menu_button_pressed(button : Button):
 			show_credits()
 		quit_button:
 			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
-			await AudioManager.sfx.get_child(0).finished
+			await AudioManager.sfx.get_child(-1).finished
 			get_tree().quit()
+		credits_back_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
+			hide_credits()
 
 func swap_to_settings():
 	button_animations.play("swap_to_settings")
@@ -107,7 +115,15 @@ func update_high_score_label():
 	high_value_label.text = "%d00" %high_score
 
 func show_credits():
-	pass
+	if credits == null or menu == null: return
+	
+	credits.show()
+	menu.hide()
+
+func hide_credits():
+	if credits == null or menu == null: return
+	menu.show()
+	credits.hide()
 
 
 func update_audio_settings():
