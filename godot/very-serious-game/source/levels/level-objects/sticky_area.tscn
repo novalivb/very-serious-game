@@ -1,13 +1,30 @@
 [gd_scene format=3 uid="uid://c5i52rq2hkr3v"]
 
 [ext_resource type="Script" uid="uid://2npnv6rn03it" path="res://source/levels/level-objects/sticky_area.gd" id="1_exrxi"]
+[ext_resource type="Texture2D" uid="uid://xtvwhcnbj7i0" path="res://assets/art/textures/honey-patches/honey_patch_small.png" id="2_2dvwk"]
 [ext_resource type="PackedScene" uid="uid://bkmru2itv11x1" path="res://source/levels/level-objects/sticky_area_collision.tscn" id="2_4k5vd"]
+[ext_resource type="Texture2D" uid="uid://bwlphmh247m12" path="res://assets/art/textures/honey-patches/honey_patch_wide.png" id="2_dwb3q"]
+[ext_resource type="Texture2D" uid="uid://nib27x62mibo" path="res://assets/art/textures/honey-patches/honey_patch_extra_wide.png" id="3_xh5sb"]
+[ext_resource type="Texture2D" uid="uid://epaf0no278g" path="res://assets/art/textures/honey-patches/honey_patch_tall.png" id="4_gt4e4"]
+[ext_resource type="Texture2D" uid="uid://boih02h052gfw" path="res://assets/art/textures/honey-patches/honey_patch_extra_tall.png" id="5_1j1lw"]
+[ext_resource type="Texture2D" uid="uid://br8gxh8vn4ea1" path="res://assets/art/textures/honey-patches/honey_patch_large.png" id="6_a1gc3"]
 
 [node name="StickyArea" type="Area2D" unique_id=138954169]
 collision_layer = 4
 script = ExtResource("1_exrxi")
+sprites_dict = Dictionary[int, Texture2D]({
+0: ExtResource("2_2dvwk"),
+1: ExtResource("2_dwb3q"),
+2: ExtResource("3_xh5sb"),
+3: ExtResource("4_gt4e4"),
+4: ExtResource("5_1j1lw"),
+5: ExtResource("6_a1gc3")
+})
 
 [node name="StickyAreaCollision" parent="." unique_id=1841647417 instance=ExtResource("2_4k5vd")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=486073111]
+position = Vector2(0, 10)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

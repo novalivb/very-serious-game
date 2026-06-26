@@ -64,8 +64,7 @@ func _process(_delta: float) -> void:
 func set_threshold_values(threshold : float):
 	if not HEIGHT_THRESHOLD_DATA.has(threshold): return
 	
-	if threshold == 100000:
-		print("100,000")
+
 	var height_threshold_vector = HEIGHT_THRESHOLD_DATA[threshold]
 	glob_spawner.base_time_to_spawn = height_threshold_vector.x
 	sticky_spawn_height_threshold = height_threshold_vector.y
