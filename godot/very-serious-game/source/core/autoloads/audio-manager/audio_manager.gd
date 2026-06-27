@@ -77,6 +77,7 @@ func setup_sound_effects_dict():
 	for setting : SoundEffectSettings in sound_effect_settings:
 		sound_effect_dict[setting.type] = setting
 
+
 func create_sound_effect(sound_effect_type : SoundEffectSettings.SOUND_EFFECT_TYPE):
 	if not sound_effect_dict.has(sound_effect_type):
 		printerr("Tried to create a sound effect of unknown tyoe: %s" %sound_effect_type)
@@ -98,7 +99,7 @@ func create_sound_effect(sound_effect_type : SoundEffectSettings.SOUND_EFFECT_TY
 	new_sound_effect.stream = sound_effect_setting.stream
 	new_sound_effect.volume_db = sound_effect_setting.volume_db
 	new_sound_effect.pitch_scale = sound_effect_setting.pitch_scale
-	# TODO add randomness
+	new_sound_effect.pitch_scale += randf_range(-sound_effect_setting.randomness, sound_effect_setting.randomness)
 	
 	# connect signals
 	new_sound_effect.finished.connect(sound_effect_setting.on_audio_finished)
@@ -128,7 +129,8 @@ func create_sound_effect_at(global_pos : Vector2, sound_effect_type : SoundEffec
 	new_sound_effect.stream = sound_effect_setting.stream
 	new_sound_effect.volume_db = sound_effect_setting.volume_db
 	new_sound_effect.pitch_scale = sound_effect_setting.pitch_scale
-	# TODO add randomness
+	new_sound_effect.pitch_scale += randf_range(-sound_effect_setting.randomness, sound_effect_setting.randomness)
+
 	
 	# connect signals
 	new_sound_effect.finished.connect(sound_effect_setting.on_audio_finished)

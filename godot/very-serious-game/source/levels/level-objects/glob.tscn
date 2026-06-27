@@ -3,13 +3,20 @@
 [ext_resource type="Script" uid="uid://duelm3fwa5m0g" path="res://source/levels/level-objects/glob.gd" id="1_qdssx"]
 [ext_resource type="Texture2D" uid="uid://ckn5ujk68mm5t" path="res://assets/art/textures/honey_glob/honey_glob.png" id="2_yfl40"]
 
+[sub_resource type="Curve" id="Curve_wm4bl"]
+_limits = [0.0, 4.0, 0.0, 2000.0]
+_data = [Vector2(0, 0), 0.0, 0.0017890629, 0, 0, Vector2(541.48474, 3.9285717), 5.6795576e-05, 5.6795576e-05, 0, 0, Vector2(1423.5808, 4), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_kcpv0"]
 radius = 60.0
 
 [node name="Glob" type="RigidBody2D" unique_id=1982662133]
+z_index = 4
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_qdssx")
+wind_pitch_curve = SubResource("Curve_wm4bl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1356015550]
 unique_name_in_owner = true

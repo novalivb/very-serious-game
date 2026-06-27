@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c8jev7mw5hg78"]
+
+[ext_resource type="Theme" uid="uid://nmfdy4s2hk1w" path="res://source/resources/gui_theme.tres" id="1_ra0ha"]
+[ext_resource type="Script" uid="uid://qc2yjo6mvsaq" path="res://source/ui/hud/death_taunt_label.gd" id="2_36oyr"]
+
+[node name="DeathTauntLabel" type="Label" unique_id=2052810682]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = 61.0
+offset_right = 47.0
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme = ExtResource("1_ra0ha")
+theme_override_constants/outline_size = 37
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+script = ExtResource("2_36oyr")
+taunts_array = Array[String](["You'll get there eventually.", "Try again!", "You'll never reach the top.", "Tired?", "You look good in honey!", "You were almost there!", "I can't believe your home was just off-screen...", "RIP", "Did you know that you can dodge?", "Git Gud", "Incredible", "Did you mean to do that?", "At least it's tasty...", "Next time, for sure!", "Have you seen the giga glob..?", "Why don't you just go home?", "All honey, no homey.", "Seriously?", "Sticky!", "Why is there a score, anyway?", "Sweet! The honey, not your performance.", "Where are your friends, now?", "Delicious!", "That maneuver never works.", "Want a redo?", "If only you had some wings..."])

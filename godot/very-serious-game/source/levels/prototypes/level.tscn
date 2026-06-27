@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://cuuxfp5ix335y" path="res://assets/audio/music/Buzz From Beyond.wav" id="2_rl53p"]
 [ext_resource type="Texture2D" uid="uid://c5lsy8mwnrrbw" path="res://assets/art/textures/honeycomb/honeycomb2.svg" id="3_hdybb"]
 [ext_resource type="PackedScene" uid="uid://c5i52rq2hkr3v" path="res://source/levels/level-objects/sticky_area.tscn" id="3_rcjmc"]
+[ext_resource type="PackedScene" uid="uid://c8jev7mw5hg78" path="res://source/ui/hud/death_taunt_label.tscn" id="3_rl53p"]
 [ext_resource type="Script" uid="uid://diexvy01jqi28" path="res://source/gameplay/camera/constrained_camera.gd" id="4_bmmj4"]
 [ext_resource type="PackedScene" uid="uid://jkjaitqvxsd2" path="res://source/levels/level-objects/path_spawner.tscn" id="5_wdmp5"]
 [ext_resource type="PackedScene" uid="uid://ltxit4c5w0np" path="res://source/levels/level-objects/glob.tscn" id="6_snyqg"]
@@ -138,6 +139,7 @@ _data = {
 [node name="Level" type="Node2D" unique_id=1883799318]
 script = ExtResource("1_hdybb")
 background_music = ExtResource("2_rl53p")
+death_taunt_scene = ExtResource("3_rl53p")
 
 [node name="Parallax2D2" type="Parallax2D" parent="." unique_id=614841353]
 repeat_size = Vector2(786, 1152)
@@ -158,6 +160,7 @@ position = Vector2(0, -948)
 
 [node name="GlobSpawner" parent="Camera2D/CameraTopAnchor" unique_id=725664121 node_paths=PackedStringArray("path", "path_follow") instance=ExtResource("5_wdmp5")]
 unique_name_in_owner = true
+position = Vector2(0, -62)
 scene_to_spawn = ExtResource("6_snyqg")
 path = NodePath("Path2D")
 path_follow = NodePath("Path2D/PathFollow2D")
@@ -186,6 +189,7 @@ curve = SubResource("Curve2D_rcjmc")
 position = Vector2(-800, 0)
 
 [node name="HazardWarningArea" type="Area2D" parent="Camera2D/CameraTopAnchor" unique_id=1135794675]
+position = Vector2(0, -191)
 collision_layer = 0
 collision_mask = 4
 monitorable = false

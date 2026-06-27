@@ -1,6 +1,8 @@
 class_name StickyArea extends Area2D
 ## Slows player when inside, spawns in an assortment of random sizes
 
+@export var possible_powerups_scenes : Array[PackedScene]
+
 @onready var sticky_area_collision: CollisionShape2D = $StickyAreaCollision
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
@@ -48,14 +50,34 @@ func _ready() -> void:
 	# randomize scale
 	var random_scale_factor : float = randf_range(0.9,1.5)
 	scale *= random_scale_factor
+	
+	# spawn powerup?
+	if possible_powerups_scenes.is_empty(): return
+	if randi_range(0, 15) == 0:
+		var powerup_scene = possible_powerups_scenes.pick_random().instantiate() as Powerup
+		if powerup_scene == null:
+			return
+		
+		powerup_scene.effect = Powerup.EFFECT.keys().pick_random()
+		powerup_scene.global_position = global_position
+		Global.mainScene.get_entity_root().add_child(powerup_scene)
 
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is CharacterPlayer:
 		body.enter_sticky()
+		
+	if body is Glob:
+		if entered_screen:
+			body.enter_sticky()
+	
 func _on_body_exited(body: Node2D) -> void:
 	if body is CharacterPlayer:
 		body.exit_sticky()
+	
+	if body is Glob:
+		if entered_screen:
+			body.exit_sticky()
 
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
@@ -64,5 +86,4 @@ func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	if not entered_screen: return
-	print_debug("Freed Honey Patch: %s" %name)
 	queue_free()

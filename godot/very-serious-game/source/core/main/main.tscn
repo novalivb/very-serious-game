@@ -54,7 +54,6 @@ mouse_filter = 2
 
 [node name="PauseScreen" parent="PauseLayer/PauseRoot" unique_id=325536147 instance=ExtResource("3_kbrwo")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 
 [node name="TransitionsLayer" type="CanvasLayer" parent="." unique_id=378343777]

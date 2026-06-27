@@ -5,6 +5,7 @@ signal score_updated(new_score : int)
 @export var enabled : bool = false
 
 @export var background_music : AudioStream
+@export var death_taunt_scene : PackedScene
 #@export var sticky_area_scene : PackedScene
 
 @onready var camera_2d: ConstrainedCamera = $Camera2D
@@ -40,6 +41,8 @@ var sticky_spawn_height_threshold: float = HEIGHT_THRESHOLD_DATA[0.0].y
 
 #region systems
 func _ready() -> void:
+	Global.input_device_switched.connect(switch_inputs)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	AudioManager.play_ambient()
 	if not character_player == null:
 		character_player.first_movement_taken.connect(first_movement_trigger)
@@ -149,8 +152,13 @@ func fade_out_controls_label():
 #region gameplay dynamics
 ## freeze glob, attach to player and kill player
 func glob_player(glob : Glob):
+	var taunt = death_taunt_scene.instantiate()
+	Global.mainScene.get_hud_root().add_child(taunt)
+	
 	# play sound
+	AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.BOOM)
 	AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.SQUELCH)
+	AudioManager.crossfade_to(null)
 	
 	# place glob on player head
 	glob.freeze = true
@@ -177,15 +185,31 @@ func spawn_sticky_area():
 #endregion
 
 #region utility functions
+
+func switch_inputs(is_mnk : bool):
+	if get_tree().paused: return
+	if is_mnk: enable_mouse_and_keyboard()
+	else: enable_joypad()
+
+func enable_mouse_and_keyboard():
+	#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	pass
+
+func enable_joypad():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reload_current_level"):
 		reload_level()
 		
 ## load the current level again
 func reload_level():
-	AudioManager.crossfade_to(null)
 	save_score_if_record()
 	SceneManager.swap_level_to(self.scene_file_path)
+	AudioManager.crossfade_to(null)
+	AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.DIED)
+	
 
 ## Add height, convert to score
 func add_height(value : float):

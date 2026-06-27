@@ -6,6 +6,11 @@ enum SOUND_EFFECT_TYPE {
 	UI_SWOOP,
 	UI_HOVER,
 	SQUELCH,
+	BOOM,
+	DIED,
+	HAZARD_WARNING,
+	GIGA_HAZARD_WARNING,
+	POWERUP,
 }
 
 @export_range(0.0, 10.0, 1.0) var limit : float = 5

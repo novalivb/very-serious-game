@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://xtvwhcnbj7i0" path="res://assets/art/textures/honey-patches/honey_patch_small.png" id="2_2dvwk"]
 [ext_resource type="PackedScene" uid="uid://bkmru2itv11x1" path="res://source/levels/level-objects/sticky_area_collision.tscn" id="2_4k5vd"]
 [ext_resource type="Texture2D" uid="uid://bwlphmh247m12" path="res://assets/art/textures/honey-patches/honey_patch_wide.png" id="2_dwb3q"]
+[ext_resource type="PackedScene" uid="uid://kpes3yw8pl0y" path="res://source/levels/level-objects/speed_boost.tscn" id="2_wbg14"]
 [ext_resource type="Texture2D" uid="uid://nib27x62mibo" path="res://assets/art/textures/honey-patches/honey_patch_extra_wide.png" id="3_xh5sb"]
 [ext_resource type="Texture2D" uid="uid://epaf0no278g" path="res://assets/art/textures/honey-patches/honey_patch_Tall.png" id="4_gt4e4"]
 [ext_resource type="Texture2D" uid="uid://boih02h052gfw" path="res://assets/art/textures/honey-patches/honey_patch_extra_tall.png" id="5_1j1lw"]
@@ -11,7 +12,9 @@
 
 [node name="StickyArea" type="Area2D" unique_id=138954169]
 collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_exrxi")
+possible_powerups_scenes = Array[PackedScene]([ExtResource("2_wbg14")])
 sprites_dict = Dictionary[int, Texture2D]({
 0: ExtResource("2_2dvwk"),
 1: ExtResource("2_dwb3q"),

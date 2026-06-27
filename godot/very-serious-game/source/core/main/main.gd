@@ -23,6 +23,7 @@ class_name Main extends Node
 
 const MAIN_MENU_SCENE_UID : String = "uid://cegnn4fyiak8c"
 const TEST_LEVEL_SCENE_UID : String = "uid://0p0ifxkhcgrr"
+const INTRO_SEQUENCE = preload("uid://c0otwbavsld83")
 
 var _current_level : Node
 
@@ -31,10 +32,22 @@ func _init() -> void:
 	Global.mainScene = self
 
 func _ready() -> void:
+	var seen_intro = ConfigFileHandler.load_player_settings()["seen_intro"]
+	if not seen_intro:
+		await play_intro()
+	
 	start_menu_or_game()
 	if not pause_screen == null:
 		pause_screen.unpause_requested.connect(unpause)
 		pause_screen.menu_requested.connect(start_menu_or_game)
+
+func play_intro():
+	var intro = INTRO_SEQUENCE.instantiate() as IntroSequence
+	if intro == null:
+		pass
+	hud_root.add_child(intro)
+	await intro.animation_player.animation_finished
+	ConfigFileHandler.save_player_setting("seen_intro", true)
 
 func get_hud_root() -> Control:
 	return hud_root
@@ -137,8 +150,12 @@ func create_warning_label(target_node : Node2D) -> WarningLabel:
 		new_warning_label.scale = Vector2.ONE * target_node.random_scale_factor
 		if target_node.random_scale_factor == Glob.GIGA_GLOB_SCALE:
 			new_warning_label.play_giga_warning()
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.GIGA_HAZARD_WARNING)
+		else:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.HAZARD_WARNING)
+
 	hud_root.add_child(new_warning_label)
-	new_warning_label.position = Vector2(500, 60)
+	new_warning_label.position = Vector2(1000, 30)
 	return new_warning_label
 
 #endregion

@@ -17,6 +17,7 @@ func _ready() -> void:
 		
 		# player settings
 		config.set_value("player", "high_score", 0.0)
+		config.set_value("player", "seen_intro", false)
 		
 		
 		config.save(SETTINGS_FILE_PATH)

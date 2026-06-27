@@ -1,11 +1,15 @@
 class_name Glob extends RigidBody2D
 
+@export var wind_pitch_curve: Curve
+
 @onready var sprite_2d: Sprite2D = %Sprite2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 @onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
 
 var shape: CircleShape2D
 var random_scale_factor : float = 1.0
+var honey_patches_inside : int = 0
+var distance_to_botton_of_screen : float = 0.0
 
 const DEFAULT_SHAPE_RADIUS : float = 60.0
 const GIGA_GLOB_SCALE : float = 3.45
@@ -38,6 +42,21 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	visible_on_screen_notifier_2d.global_position = global_position
+
+
+func enter_sticky():
+	if honey_patches_inside == 0:
+		gravity_scale /= 2
+		angular_damp = 5
+		linear_velocity /= 5
+	honey_patches_inside += 1
+
+func exit_sticky():
+	honey_patches_inside -= 1
+	if honey_patches_inside == 0:
+		gravity_scale *= 2
+		angular_damp = 0
+		linear_velocity *= 2
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	gravity_scale = 0.5

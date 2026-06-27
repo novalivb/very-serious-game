@@ -25,6 +25,8 @@ const JUMP_VELOCITY = -400.0
 @onready var l_hand: ShapeCast2D = %LHand
 @onready var r_hand: ShapeCast2D = %RHand
 @onready var hazard_detector: ShapeCast2D = %HazardDetector
+@onready var sticky_movement_sound: AudioStreamPlayer2D = %StickyMovementSound
+@onready var speed_boost_sprite: Sprite2D = %SpeedBoostSprite
 
 
 var is_god_mode : bool = false:
@@ -37,8 +39,13 @@ var is_grabbing_right : bool = false
 var current_angle : float = 0.0
 var has_taken_first_movement : bool = false
 var sticky_rotation_multiplier : float = 1.0
+var honey_patches_inside : int = 0
+var speed_boost_time_remaining : float = 0.0
+var speed_boost_rotation_multiplier : float = 1.0
 
 const STICKY_ROTATION_PENALTY : float = 0.5
+const SPEED_BOOST_BASE_TIME : float = 10.0
+const SPEED_BOOST_ACTIVE_MULTIPLIER : float = 2.0
 
 func repivot_to(glo_pos : Vector2):
 	if not enabled or body == null:
@@ -55,6 +62,11 @@ func _init() -> void:
 	Global.player = self
 
 func _ready() -> void:
+	if not sticky_movement_sound == null:
+		sticky_movement_sound.play()
+		await get_tree().process_frame
+		sticky_movement_sound.stream_paused = true
+	
 	if not climb_input_component == null:
 		climb_input_component.climb_left_pressed.connect(grab_left)
 		climb_input_component.climb_left_released.connect(release_left)
@@ -90,13 +102,31 @@ func _physics_process(delta: float) -> void:
 			enabled = false
 			globbed.emit(collider)
 			return
-			
+	
+	# apply speed boost if active
+	if speed_boost_time_remaining > 0.0:
+		speed_boost_rotation_multiplier = SPEED_BOOST_ACTIVE_MULTIPLIER
+		speed_boost_sprite.visible = true
+		speed_boost_time_remaining = max(0, speed_boost_time_remaining - delta)
+	else:
+		speed_boost_rotation_multiplier = 1
+		speed_boost_sprite.visible = false
+	
 	# rotate and slide
 	var rotational_velocity = get_angular_direction() * default_rotational_speed * delta
 	rotational_velocity *= sticky_rotation_multiplier
-	if not rotational_velocity == 0.0 and not has_taken_first_movement:
-		has_taken_first_movement = true
-		first_movement_taken.emit()
+	rotational_velocity *= speed_boost_rotation_multiplier
+	if not rotational_velocity == 0.0: # currently climbing
+		if not has_taken_first_movement:
+			has_taken_first_movement = true
+			first_movement_taken.emit()
+		if sticky_rotation_multiplier < 1.0:
+			sticky_movement_sound.stream_paused = false
+		else:
+			sticky_movement_sound.stream_paused = true
+	else:
+		sticky_movement_sound.stream_paused = true
+		
 		
 	rotate(rotational_velocity)
 	
@@ -129,10 +159,19 @@ func release_left():
 		repivot_to(r_hand.global_position)
 
 func enter_sticky():
-	sticky_rotation_multiplier = STICKY_ROTATION_PENALTY
+	if honey_patches_inside == 0:
+		sticky_rotation_multiplier = STICKY_ROTATION_PENALTY
+	honey_patches_inside += 1
 
 func exit_sticky():
-	sticky_rotation_multiplier = 1.0
+	honey_patches_inside -= 1
+	if honey_patches_inside == 0:
+		sticky_rotation_multiplier = 1.0
+
+func collect_powerup(effect : Powerup.EFFECT):
+	match effect:
+		Powerup.EFFECT.SPEED_BOOST:
+			speed_boost_time_remaining = SPEED_BOOST_BASE_TIME
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	#if not enabled: return

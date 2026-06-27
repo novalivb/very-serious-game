@@ -1,6 +1,10 @@
-extends Control
+class_name MainMenuUI extends Control
 
 signal start_game
+
+@export var default_menu_button : Button
+@export var default_settings_button : Button
+@export var default_credits_button : Button
 
 @onready var button_animations: AnimationPlayer = %ButtonAnimations
 @onready var logo_animations: AnimationPlayer = %LogoAnimations
@@ -14,6 +18,7 @@ signal start_game
 @onready var back_button: Button = %BackButton
 @onready var delete_high_score_button: Button = %DeleteHighScoreButton
 @onready var credits_back_button: Button = %CreditsBackButton
+@onready var intro_button: Button = %IntroButton
 
 # ui panels
 @onready var settings_menu: MarginContainer = %SettingsMenu
@@ -29,7 +34,15 @@ signal start_game
 
 const MENU_OFFSCREEN_OFFSET : float = 1069
 
+
+
 func _ready() -> void:
+	Global.input_device_switched.connect(switch_input_device)
+	get_viewport().gui_release_focus()
+	if not Global.using_mouse_and_keyboard:
+		default_menu_button.grab_focus()
+	
+	
 	logo_animations.play("wiggle")
 	settings_menu.offset_transform_position.x = MENU_OFFSCREEN_OFFSET
 	update_high_score_label()
@@ -43,6 +56,8 @@ func _ready() -> void:
 	back_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	delete_high_score_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
 	credits_back_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
+	intro_button.pressed.connect(_on_menu_button_pressed, CONNECT_APPEND_SOURCE_OBJECT)
+	
 	
 	# connect buttons mouse entered to grab focus
 	start_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
@@ -52,6 +67,8 @@ func _ready() -> void:
 	back_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
 	delete_high_score_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
 	credits_back_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	intro_button.mouse_entered.connect(focus_button, CONNECT_APPEND_SOURCE_OBJECT)
+	
 	
 	# connect buttons focused
 	start_button.focus_entered.connect(_on_menu_button_focused)
@@ -61,12 +78,31 @@ func _ready() -> void:
 	back_button.focus_entered.connect(_on_menu_button_focused)
 	delete_high_score_button.focus_entered.connect(_on_menu_button_focused)
 	credits_back_button.focus_entered.connect(_on_menu_button_focused)
+	intro_button.focus_entered.connect(_on_menu_button_focused)
+	
 	
 	# connect sliders
 	master_slider.drag_ended.connect(_on_master_slider_drag_ended)
 	sfx_slider.drag_ended.connect(_on_sfx_slider_drag_ended)
 	music_slider.drag_ended.connect(_on_music_slider_drag_ended)
 	
+func switch_input_device(is_mnk : bool):
+	if is_mnk: enable_mouse_and_keyboard()
+	else: enable_joypad()
+
+func enable_mouse_and_keyboard():
+	get_viewport().gui_release_focus()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func enable_joypad():
+	if get_viewport().gui_get_focus_owner() == null:
+		if credits.visible:
+			default_credits_button.grab_focus()
+		elif settings_menu.visible:
+			default_settings_button.grab_focus()
+		else:
+			default_menu_button.grab_focus()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func focus_button(button : Button):
 	button.grab_focus()
@@ -93,18 +129,29 @@ func _on_menu_button_pressed(button : Button):
 			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
 			show_credits()
 		quit_button:
-			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_CANCEL)
 			await AudioManager.sfx.get_child(-1).finished
 			get_tree().quit()
 		credits_back_button:
-			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_CANCEL)
 			hide_credits()
+		intro_button:
+			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
+			Global.mainScene.play_intro()
 
 func swap_to_settings():
 	button_animations.play("swap_to_settings")
+	get_viewport().gui_release_focus()
+	await button_animations.animation_finished
+	if not Global.using_mouse_and_keyboard:
+		default_settings_button.grab_focus()
 
 func swap_to_main_buttons():
 	button_animations.play("swap_to_main_buttons")
+	get_viewport().gui_release_focus()
+	await button_animations.animation_finished
+	if not Global.using_mouse_and_keyboard:
+		default_menu_button.grab_focus()
 
 func delete_high_score():
 	ConfigFileHandler.save_player_setting("high_score", 0.0)
@@ -118,11 +165,17 @@ func show_credits():
 	if credits == null or menu == null: return
 	
 	credits.show()
+	get_viewport().gui_release_focus()
+	if not Global.using_mouse_and_keyboard:
+		default_credits_button.grab_focus()
 	menu.hide()
 
 func hide_credits():
 	if credits == null or menu == null: return
 	menu.show()
+	get_viewport().gui_release_focus()
+	if not Global.using_mouse_and_keyboard:
+		default_menu_button.grab_focus()
 	credits.hide()
 
 

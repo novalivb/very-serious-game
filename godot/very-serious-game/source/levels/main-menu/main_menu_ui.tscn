@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cc1f6ttqhj3u"]
 
 [ext_resource type="Script" uid="uid://b55ff8f0fupj1" path="res://source/levels/main-menu/main_menu_ui.gd" id="1_y3du3"]
-[ext_resource type="Texture2D" uid="uid://tbt3vxy2hcn0" path="res://assets/art/textures/hive/hive_outer.svg" id="2_7qoec"]
+[ext_resource type="Texture2D" uid="uid://tbt3vxy2hcn0" path="res://assets/art/ui/textures/hive/hive_outer.svg" id="2_7qoec"]
 [ext_resource type="Texture2D" uid="uid://cpbtj2d8dnllm" path="res://assets/art/textures/honeycomb/honeycomb.svg" id="2_u4x3k"]
 [ext_resource type="Script" uid="uid://bwfswwfx2u20h" path="res://source/ui/main-menu/volume_slider.gd" id="3_gomhu"]
 [ext_resource type="Texture2D" uid="uid://ctbh5ko8ayqmb" path="res://assets/art/ui/icons/logo.svg" id="3_q3qde"]
@@ -68,6 +68,30 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(569, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Panel/Menu/HBoxContainer/MarginContainer/MainButtons:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_m6035"]
@@ -137,6 +161,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(569, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/Menu/HBoxContainer/MarginContainer/MainButtons:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_u4x3k"]
 resource_name = "swap_to_settings"
@@ -164,6 +212,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(2, 0.5),
 "update": 0,
 "values": [Vector2(569, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Panel/Menu/HBoxContainer/MarginContainer/MainButtons:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6g5xe"]
@@ -293,7 +365,7 @@ expand_margin_bottom = 975.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jomo4"]
 
-[node name="MainMenuUI" type="Control" unique_id=2141015559]
+[node name="MainMenuUI" type="Control" unique_id=2141015559 node_paths=PackedStringArray("default_menu_button", "default_settings_button", "default_credits_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -301,6 +373,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y3du3")
+default_menu_button = NodePath("Panel/Menu/HBoxContainer/MarginContainer/MainButtons/StartButton")
+default_settings_button = NodePath("Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/BackButton")
+default_credits_button = NodePath("Panel/Credits/CreditsText/CreditsBackButton")
 
 [node name="ButtonAnimations" type="AnimationPlayer" parent="." unique_id=1128417182]
 unique_name_in_owner = true
@@ -362,6 +437,7 @@ expand_mode = 1
 
 [node name="SettingsMenu" type="MarginContainer" parent="Panel/Menu/HBoxContainer/MarginContainer" unique_id=727394138]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(469, 0)
 layout_mode = 2
 offset_transform_enabled = true
@@ -455,16 +531,23 @@ theme = ExtResource("6_oi1lf")
 text = "Master"
 horizontal_alignment = 2
 
-[node name="DeleteHighScore" type="VBoxContainer" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=1606677761]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=1887890997]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 37
+
+[node name="DeleteHighScore" type="VBoxContainer" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer" unique_id=1606677761]
 layout_mode = 2
 
-[node name="Label4" type="Label" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/DeleteHighScore" unique_id=2098551780]
+[node name="Label4" type="Label" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer/DeleteHighScore" unique_id=2098551780]
+custom_minimum_size = Vector2(0, 36.215)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("6_oi1lf")
 text = "Delete High Score?"
 horizontal_alignment = 1
 
-[node name="DeleteHighScoreButton" type="Button" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/DeleteHighScore" unique_id=2104421597]
+[node name="DeleteHighScoreButton" type="Button" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer/DeleteHighScore" unique_id=2104421597]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
@@ -473,12 +556,30 @@ theme = ExtResource("6_oi1lf")
 theme_override_font_sizes/font_size = 20
 text = "YES"
 
-[node name="Label5" type="Label" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/DeleteHighScore" unique_id=737934255]
+[node name="Label5" type="Label" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer/DeleteHighScore" unique_id=737934255]
 layout_mode = 2
+theme = ExtResource("6_oi1lf")
 theme_override_colors/font_color = Color(18.892157, 0, 0, 1)
 theme_override_font_sizes/font_size = 28
 text = "IRREVSESIBLE!"
 horizontal_alignment = 1
+
+[node name="Intro" type="VBoxContainer" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer" unique_id=1707804212]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer/Intro" unique_id=1520011338]
+layout_mode = 2
+theme = ExtResource("6_oi1lf")
+text = "Watch Again"
+horizontal_alignment = 1
+
+[node name="IntroButton" type="Button" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer/HBoxContainer/Intro" unique_id=1737962801]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+theme = ExtResource("6_oi1lf")
+theme_override_font_sizes/font_size = 20
+text = "Intro"
 
 [node name="BackButton" type="Button" parent="Panel/Menu/HBoxContainer/MarginContainer/SettingsMenu/VBoxContainer" unique_id=16553203]
 unique_name_in_owner = true

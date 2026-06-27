@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://b1quogown6bnl" path="res://source/ui/pause-menu/pause_screen.gd" id="1_q0fu5"]
 [ext_resource type="Theme" uid="uid://nmfdy4s2hk1w" path="res://source/resources/gui_theme.tres" id="2_o01ca"]
 
-[node name="PauseScreen" type="Control" unique_id=325536147]
+[node name="PauseScreen" type="Control" unique_id=325536147 node_paths=PackedStringArray("default_pause_button")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q0fu5")
+default_pause_button = NodePath("VBoxContainer/ResumeButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=999147429]
 layout_mode = 1
@@ -50,5 +52,4 @@ theme = ExtResource("2_o01ca")
 theme_override_font_sizes/font_size = 48
 text = "give up..."
 
-[connection signal="pressed" from="VBoxContainer/ResumeButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_button_pressed"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
