@@ -41,6 +41,8 @@ func _ready() -> void:
 	get_viewport().gui_release_focus()
 	if not Global.using_mouse_and_keyboard:
 		default_menu_button.grab_focus()
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	
 	logo_animations.play("wiggle")
@@ -137,7 +139,8 @@ func _on_menu_button_pressed(button : Button):
 			hide_credits()
 		intro_button:
 			AudioManager.create_sound_effect(SoundEffectSettings.SOUND_EFFECT_TYPE.UI_ACCEPT)
-			Global.mainScene.play_intro()
+			await Global.mainScene.play_intro()
+			Global.mainScene.start_menu_or_game()
 
 func swap_to_settings():
 	button_animations.play("swap_to_settings")

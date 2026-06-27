@@ -42,6 +42,8 @@ func _ready() -> void:
 		pause_screen.menu_requested.connect(start_menu_or_game)
 
 func play_intro():
+	AudioManager.stop_ambient()
+	
 	var intro = INTRO_SEQUENCE.instantiate() as IntroSequence
 	if intro == null:
 		pass
@@ -84,6 +86,7 @@ func unpause():
 ## sans loading screen
 func start_menu_or_game():
 	unpause()
+	AudioManager.crossfade_to(null)
 	
 	var level_scene : PackedScene
 	
