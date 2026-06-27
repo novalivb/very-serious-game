@@ -97,6 +97,7 @@ func enable_mouse_and_keyboard():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func enable_joypad():
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if get_viewport().gui_get_focus_owner() == null:
 		if credits.visible:
 			default_credits_button.grab_focus()
@@ -104,7 +105,6 @@ func enable_joypad():
 			default_settings_button.grab_focus()
 		else:
 			default_menu_button.grab_focus()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func focus_button(button : Button):
 	button.grab_focus()

@@ -47,7 +47,7 @@ func play_intro():
 	var intro = INTRO_SEQUENCE.instantiate() as IntroSequence
 	if intro == null:
 		pass
-	hud_root.add_child(intro)
+	transitions_root.add_child(intro)
 	await intro.animation_player.animation_finished
 	ConfigFileHandler.save_player_setting("seen_intro", true)
 
@@ -85,6 +85,8 @@ func unpause():
 ## Loads main menu if auto start is off, otherwides loads the level
 ## sans loading screen
 func start_menu_or_game():
+	if Global.using_mouse_and_keyboard:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	unpause()
 	AudioManager.crossfade_to(null)
 	

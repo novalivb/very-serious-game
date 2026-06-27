@@ -19,7 +19,7 @@ func set_main(main : Main):
 func _input(event: InputEvent) -> void:
 	
 	# detect when changing to a controller or back to mnk. emits a signal
-	if event is InputEventMouse or event is InputEventKey:
+	if event is InputEventMouse:
 		if not using_mouse_and_keyboard:
 			using_mouse_and_keyboard = true
 	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:

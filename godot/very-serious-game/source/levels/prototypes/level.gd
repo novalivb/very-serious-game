@@ -42,7 +42,7 @@ var sticky_spawn_height_threshold: float = HEIGHT_THRESHOLD_DATA[0.0].y
 #region systems
 func _ready() -> void:
 	Global.input_device_switched.connect(switch_inputs)
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	AudioManager.play_ambient()
 	if not character_player == null:
 		character_player.first_movement_taken.connect(first_movement_trigger)
@@ -196,7 +196,8 @@ func enable_mouse_and_keyboard():
 	pass
 
 func enable_joypad():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_
+	pass
 
 
 func _unhandled_input(event: InputEvent) -> void:

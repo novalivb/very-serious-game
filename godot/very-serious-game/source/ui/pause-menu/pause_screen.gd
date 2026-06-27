@@ -26,7 +26,7 @@ func enable_mouse_and_keyboard():
 	get_viewport().gui_release_focus()
 
 func enable_joypad():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if get_viewport().gui_get_focus_owner() == null:
 		default_pause_button.grab_focus()
 
@@ -42,7 +42,7 @@ func _on_pause_screen_button_pressed(button : Button):
 
 func _on_visibility_changed() -> void:
 	if not visible:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		return
 	
 	elif not Global.using_mouse_and_keyboard:
