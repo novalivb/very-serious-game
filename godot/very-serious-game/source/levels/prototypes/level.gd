@@ -233,16 +233,16 @@ func add_height(value : float):
 	# add score if needed
 	height_since_last_score = max(0, height_since_last_score + value)
 	if height_since_last_score > HEIGHT_SCORE_CONVERSION_RATE:
-		while height_since_last_score > HEIGHT_SCORE_CONVERSION_RATE:
-			add_score(1)
-			height_since_last_score -= HEIGHT_SCORE_CONVERSION_RATE
+		#while height_since_last_score > HEIGHT_SCORE_CONVERSION_RATE:
+		add_score(1)
+		height_since_last_score -= HEIGHT_SCORE_CONVERSION_RATE
 	
 	# spawn sticky area if needed
 	height_since_last_sticky = max(0, height_since_last_sticky + value)
 	if height_since_last_sticky >= sticky_spawn_height_threshold:
-		while height_since_last_sticky > sticky_spawn_height_threshold:
-			spawn_sticky_area()
-			height_since_last_sticky -= sticky_spawn_height_threshold
+		#while height_since_last_sticky > sticky_spawn_height_threshold:
+		spawn_sticky_area()
+		height_since_last_sticky -= sticky_spawn_height_threshold
 
 ## Add score, minimum 0
 func add_score(value : int):

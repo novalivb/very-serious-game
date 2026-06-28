@@ -11,10 +11,10 @@ config_version=5
 [application]
 
 config/name="Homey Bee"
-config/version="1.0.2"
+config/version="1.0.3"
 run/main_scene="uid://d4qkvktf6bjg"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="Homey Bee 1.0.2"
+config/custom_user_dir_name="Homey Bee 1.0.3"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://ckn5ujk68mm5t"
 
